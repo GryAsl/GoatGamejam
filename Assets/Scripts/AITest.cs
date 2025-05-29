@@ -15,7 +15,7 @@ public class AITest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) // Sol tık
+        if (Input.GetMouseButtonDown(1)) // Sol tık
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
