@@ -8,6 +8,7 @@ public class Builder : MonoBehaviour
 {
     public GameObject prefab;
     public GameObject ghost;
+    public List<GameObject> prefabs = new List<GameObject>();
     public List<GameObject> builded = new List<GameObject>();
 
     public float gridSize = 1f;
@@ -15,16 +16,17 @@ public class Builder : MonoBehaviour
 
     void Start()
     {
-        ghost = Instantiate(prefab);
+        CreateGhost(prefab);
     }
 
     void Update()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        if (Physics.Raycast(ray, out RaycastHit hit, 100f, buildBlockerLayers))
         {
             Vector3 snappedPos = SnapToGridFunc(hit.point);
             ghost.transform.position = snappedPos;
+            Debug.Log(hit.collider);
         }
 
         if (Input.GetKeyDown(KeyCode.E))
@@ -44,6 +46,13 @@ public class Builder : MonoBehaviour
         }
 
 
+    }
+
+    public void CreateGhost(GameObject go)
+    {
+        if (ghost)
+            Destroy(ghost);
+        ghost = Instantiate(go);
     }
 
     Vector3 SnapToGridFunc(Vector3 pos)
