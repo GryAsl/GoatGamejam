@@ -21,16 +21,20 @@ public class Builder : MonoBehaviour
 
     public bool tezgahTypeShi;
 
+    private GameManager gm;
+
 
 
     void Start()
     {
-        CreateGhost(prefab);
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     void Update()
     {
         if (!ghost)
+            return;
+        if (gm.gameState != GameManager.GameState.building)
             return;
         bool stop = false;
 
@@ -43,7 +47,6 @@ public class Builder : MonoBehaviour
             {
                 if (ghost.GetComponent<Building>().lastSnappedPos == snappedPos)
                 {
-                    Debug.Log("Anayn ");
                     stop = true;
                 }
                 else tezgahTypeShi = false;
@@ -72,7 +75,7 @@ public class Builder : MonoBehaviour
             if (EventSystem.current.IsPointerOverGameObject())
                 return;
 
-            if (!ghost.GetComponent<Building>().collision)
+            if (!ghost.GetComponent<Building>().currentCollision)
             {
                 builded.Add(Instantiate(prefab));
                 builded[builded.Count - 1].transform.position = ghost.transform.position;
@@ -93,12 +96,6 @@ public class Builder : MonoBehaviour
         }
         else ghost = Instantiate(go);
         ghost.GetComponent<Building>().isGhost = true;
-    }
-
-    private IEnumerator InstantiateAfterFrame(GameObject prefab)
-    {
-        yield return null;
-        ghost = Instantiate(prefab);
     }
 
     Vector3 SnapToGridFunc(Vector3 pos)

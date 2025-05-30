@@ -104,40 +104,19 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1799bcc8ebf83a34f83c343b93f98054, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4613185200845067192}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1799bcc8ebf83a34f83c343b93f98054, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 3861858965187878039}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1799bcc8ebf83a34f83c343b93f98054, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8852523628139761638}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1799bcc8ebf83a34f83c343b93f98054, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 147401910418230440}
   m_SourcePrefab: {fileID: 100100000, guid: 1799bcc8ebf83a34f83c343b93f98054, type: 3}
 --- !u!1 &3786297926300425245 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 1799bcc8ebf83a34f83c343b93f98054, type: 3}
   m_PrefabInstance: {fileID: 4056274552326611276}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &4613185200845067192
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3786297926300425245}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0.9999999, z: -0.00000008940695}
 --- !u!54 &3861858965187878039
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -163,7 +142,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!114 &8852523628139761638
 MonoBehaviour:
@@ -178,11 +157,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingName: tezgah
-  collision: 0
+  currentCollision: 0
   greenMaterial: {fileID: 2100000, guid: 6d5f9454d5a0eb64789327cabace7a54, type: 2}
   redMaterial: {fileID: 2100000, guid: c82f8441bbd129d488951969812e7472, type: 2}
   isGhost: 0
   lastSnappedPos: {x: 0, y: 0, z: 0}
+--- !u!65 &147401910418230440
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3786297926300425245}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.5, y: 1.5, z: 1.5}
+  m_Center: {x: 0, y: 1, z: -0.00000008940697}
 --- !u!4 &4593796189612082855 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1799bcc8ebf83a34f83c343b93f98054, type: 3}

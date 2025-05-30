@@ -3,7 +3,7 @@
 public class Building : MonoBehaviour
 {
     public string buildingName;
-    public bool collision;
+    public bool currentCollision;
     public Material greenMaterial; 
     public Material redMaterial;
     public bool isGhost;
@@ -18,10 +18,15 @@ public class Building : MonoBehaviour
         builder = GameObject.Find("GameManager").GetComponent<Builder>();
         if (isGhost)
         {
+            GetComponent<BoxCollider>().isTrigger = true;
             ReplaceAllMaterials(greenMaterial);
-            if(buildingName == "3d")
+            if (buildingName == "3d")
                 ReplaceAllMaterials(redMaterial);
 
+        }
+        else
+        {
+            GetComponent<BoxCollider>().isTrigger = false;
         }
     }
 
@@ -31,6 +36,8 @@ public class Building : MonoBehaviour
         if (buildingName == "3d" && !builder.tezgahTypeShi && isGhost)
             ReplaceAllMaterials(redMaterial);
     }
+
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -50,13 +57,13 @@ public class Building : MonoBehaviour
             }
             else
             {
-                collision = true;
+                currentCollision = true;
                 ReplaceAllMaterials(redMaterial);
             }
         }
         else
         {
-            collision = true;
+            currentCollision = true;
             ReplaceAllMaterials(redMaterial);
         }
     }
@@ -66,12 +73,11 @@ public class Building : MonoBehaviour
         if (!isGhost)
             return;
 
-        collision = false;
-        if(buildingName == "3d" && !builder.tezgahTypeShi)
+        currentCollision = false;
+        if (buildingName == "3d" && !builder.tezgahTypeShi)
             ReplaceAllMaterials(redMaterial);
         else
             ReplaceAllMaterials(greenMaterial);
-
     }
 
     public void ReplaceAllMaterials(Material mat)

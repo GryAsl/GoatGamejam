@@ -13,11 +13,11 @@ public class GameManagerDebug : Editor
 
         if (GUILayout.Button("NormalState"))
         {
-            script.ChangeState(GameManager.GameState.normal); // Veya direkt: Debug.Log("AH");
+            script.ChangeState(GameManager.GameState.normal);
         }
         if (GUILayout.Button("BuildingState"))
         {
-            script.ChangeState(GameManager.GameState.building); // Veya direkt: Debug.Log("AH");
+            script.ChangeState(GameManager.GameState.building);
         }
     }
 }

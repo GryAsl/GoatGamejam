@@ -7,12 +7,11 @@ using static UnityEngine.GraphicsBuffer;
 public class UIManager : MonoBehaviour
 {
     public GameObject[] orderList;
-    public Foods[] foodList;
 
     public TextMeshProUGUI newOrderText;
     public Image newOrderImage;
     public float newOrderSpeedMultiplier = 2f;
-    public float speedMultiplier = 2f;
+    public float UIspeedMultiplier = 2f;
 
     public GameObject buildingPanel;
 
@@ -28,14 +27,13 @@ public class UIManager : MonoBehaviour
         
     }
 
-    public void NewOrder()
+    public void NewOrder(Foods food)
     {
         foreach(var orderPanel in orderList)
         {
             if (!orderPanel.GetComponent<OrderStatus>().on)
             {
-                int i = Random.Range(0, foodList.Length);
-                orderPanel.GetComponent<OrderStatus>().NewOrder(foodList[i]);
+                orderPanel.GetComponent<OrderStatus>().NewOrder(food);
                 StartCoroutine(NewOrder(orderPanel.GetComponent<OrderStatus>(), newOrderText, newOrderImage));
                 break;
 
@@ -83,7 +81,7 @@ public class UIManager : MonoBehaviour
         float t = cg.alpha;
         while (t <= 1f)
         {
-            t += Time.deltaTime * speedMultiplier;
+            t += Time.deltaTime * UIspeedMultiplier;
             cg.alpha = t;
             yield return null;
         }
@@ -95,7 +93,7 @@ public class UIManager : MonoBehaviour
         float t = cg.alpha;
         while (t >= 0f)
         {
-            t -= Time.deltaTime * speedMultiplier;
+            t -= Time.deltaTime * UIspeedMultiplier;
             cg.alpha = t;
             yield return null;
         }
