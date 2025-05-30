@@ -17,6 +17,7 @@ public class Builder : MonoBehaviour
 
     public float gridSize = 1f;
     public LayerMask buildBlockerLayers;
+    public LayerMask buildToDestroyLayers;
     public Vector3 snappedPos;
 
     public bool tezgahTypeShi;
@@ -75,15 +76,22 @@ public class Builder : MonoBehaviour
             if (EventSystem.current.IsPointerOverGameObject())
                 return;
 
-            if (!ghost.GetComponent<Building>().currentCollision)
+            Debug.LogError("111");
+            if (ghost.GetComponent<Building>().buildingName == "trash")
+            {
+                Debug.LogError("333");
+                Destroy(ghost.GetComponent<Building>().currentCollisionGO);
+            }
+            else if (!ghost.GetComponent<Building>().currentCollision)
             {
                 builded.Add(Instantiate(prefab));
                 builded[builded.Count - 1].transform.position = ghost.transform.position;
                 builded[builded.Count - 1].transform.rotation = ghost.transform.rotation;
+                builded[builded.Count - 1].GetComponent<Building>().isGhost = false;
+                Debug.LogError("444");
             }
+
         }
-
-
     }
 
     public void CreateGhost(GameObject go)

@@ -4,6 +4,7 @@ public class Building : MonoBehaviour
 {
     public string buildingName;
     public bool currentCollision;
+    public GameObject currentCollisionGO;
     public Material greenMaterial; 
     public Material redMaterial;
     public bool isGhost;
@@ -11,10 +12,12 @@ public class Building : MonoBehaviour
     Builder builder;
 
     public Vector3 lastSnappedPos;
+    public LayerMask layer;
 
 
     void Start()
     {
+                Debug.LogError("222 : "+ isGhost);
         builder = GameObject.Find("GameManager").GetComponent<Builder>();
         if (isGhost)
         {
@@ -22,7 +25,6 @@ public class Building : MonoBehaviour
             ReplaceAllMaterials(greenMaterial);
             if (buildingName == "3d")
                 ReplaceAllMaterials(redMaterial);
-
         }
         else
         {
@@ -35,6 +37,15 @@ public class Building : MonoBehaviour
     {
         if (buildingName == "3d" && !builder.tezgahTypeShi && isGhost)
             ReplaceAllMaterials(redMaterial);
+        if(buildingName == "3d" && !isGhost)
+        {
+                Debug.Log("hit.collider");
+            Ray ray = new Ray(transform.position, -transform.up);
+            if (!Physics.Raycast(ray, out RaycastHit hit, 1f, layer))
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 
 
@@ -47,6 +58,7 @@ public class Building : MonoBehaviour
         other.TryGetComponent<Building>(out Building building);
         if (building)
         {
+            currentCollisionGO = other.gameObject;
             if (building.buildingName == "tezgah" && buildingName == "3d")
             {
                 Debug.Log("2");

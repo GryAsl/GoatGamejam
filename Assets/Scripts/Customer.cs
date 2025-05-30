@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -29,4 +30,6 @@ public class Customer : MonoBehaviour
 
         agent.destination = targetGO.transform.position;
     }
+
+
 }
