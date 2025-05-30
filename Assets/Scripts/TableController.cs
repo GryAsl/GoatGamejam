@@ -3,13 +3,19 @@ using UnityEngine;
 public class TableController : MonoBehaviour
 {
     [SerializeField] private Transform platePoint; // Tabağın konulacağı nokta
-    [SerializeField] private string requestedPlateType; // İstenen tabak tipi (PlateA, PlateB, vb.)
+    [SerializeField] private Foods requestedFood; // İstenen yemek
     [SerializeField] private bool needsPlate = false; // Tabak isteği var mı?
     
-    // İstenen tabak tipi
-    public string GetRequestedPlateType()
+    void Start()
     {
-        return requestedPlateType;
+        Debug.Log($"Table {name} initialized. Has plate point: {platePoint != null}");
+    }
+    
+    // İstenen yemek
+    public Foods GetRequestedFood()
+    {
+        Debug.Log($"Table {name} GetRequestedFood called. Food: {(requestedFood != null ? requestedFood.foodName : "null")}");
+        return requestedFood;
     }
     
     // Tabağın konulacağı nokta
@@ -21,35 +27,34 @@ public class TableController : MonoBehaviour
     // Tabak isteği var mı?
     public bool NeedsPlate()
     {
+        Debug.Log($"Table {name} NeedsPlate called. Needs plate: {needsPlate}, Requested food: {(requestedFood != null ? requestedFood.foodName : "null")}");
         return needsPlate;
     }
     
     // Tabak geldiğinde çağrılacak
-    public void PlateDelivered(string plateType)
+    public void PlateDelivered(Foods food)
     {
-        if (plateType == requestedPlateType)
+        Debug.Log($"Table {name} PlateDelivered called with food: {food.foodName}");
+        if (food == requestedFood)
         {
             needsPlate = false;
-            Debug.Log("Table " + name + " received requested plate: " + plateType);
+            Debug.Log($"Table {name} received requested food: {food.foodName}");
             
             // Burada müşteri için diğer mantığı ekleyebilirsiniz
             // Örneğin: yemeği sunma, müşterinin yemeği yemesi, vb.
         }
+        else
+        {
+            Debug.LogWarning($"Table {name} received wrong food. Expected: {(requestedFood != null ? requestedFood.foodName : "null")}, Got: {food.foodName}");
+        }
     }
     
     // Tabak isteği oluşturmak için
-    public void RequestPlate(string plateType)
+    public void RequestFood(Foods food)
     {
-        requestedPlateType = plateType;
+        Debug.Log($"Table {name} RequestFood called with food: {food.foodName}");
+        requestedFood = food;
         needsPlate = true;
-        Debug.Log("Table " + name + " is requesting plate: " + plateType);
-    }
-    
-    // Rastgele bir tabak isteği oluşturmak için test fonksiyonu
-    public void RequestRandomPlate()
-    {
-        string[] plateTypes = { "PlateA", "PlateB", "PlateC" };
-        int randomIndex = Random.Range(0, plateTypes.Length);
-        RequestPlate(plateTypes[randomIndex]);
+        Debug.Log($"Table {name} is requesting food: {food.foodName}, needsPlate set to: {needsPlate}");
     }
 }

@@ -25,7 +25,7 @@ public class ServiceRobot : MonoBehaviour
     private bool isCarryingPlate;
     private Transform currentTarget;
     private GameObject currentPlateObject;
-    private string currentPlateTypeNeeded;
+    private Foods currentFoodNeeded;
     private TableController currentTable;
     private float idleTimer = 0f;
     private Vector3 startPos;
@@ -35,13 +35,11 @@ public class ServiceRobot : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("ServiceRobot Start - Initializing components");
         if (!agent)
         {
             agent = GetComponent<NavMeshAgent>();
-        }
-        
-        if (!agent)
-        {
+            Debug.Log("NavMeshAgent component found: " + (agent != null));
         }
         
         if (!plateHoldPosition)
@@ -50,6 +48,7 @@ public class ServiceRobot : MonoBehaviour
             holdPos.transform.parent = transform;
             holdPos.transform.localPosition = new Vector3(0, 1.2f, 0.3f);
             plateHoldPosition = holdPos.transform;
+            Debug.Log("Created new plate hold position");
         }
         
         if (startPosition != null)
@@ -60,6 +59,8 @@ public class ServiceRobot : MonoBehaviour
         {
             startPos = transform.position;
         }
+        
+        Debug.Log($"ServiceRobot initialized with {tables.Count} tables and {counters.Count} counters");
     }
 
     void Update()
@@ -72,23 +73,28 @@ public class ServiceRobot : MonoBehaviour
                 TableController tableNeedingPlate = FindTableNeedingPlate();
                 if (tableNeedingPlate != null)
                 {
+                    Debug.Log($"Found table needing plate: {tableNeedingPlate.name}");
                     idleTimer = 0f;
                     currentTable = tableNeedingPlate;
-                    currentPlateTypeNeeded = tableNeedingPlate.GetRequestedPlateType();
+                    currentFoodNeeded = tableNeedingPlate.GetRequestedFood();
+                    Debug.Log($"Table needs food: {currentFoodNeeded.foodName}");
                     
-                    Transform counterWithPlate = GetCounterWithPlateType(currentPlateTypeNeeded);
+                    Transform counterWithPlate = GetCounterWithFood(currentFoodNeeded);
                     if (counterWithPlate != null)
                     {
+                        Debug.Log($"Found counter with needed food at: {counterWithPlate.name}");
                         currentTarget = counterWithPlate;
                         currentState = RobotState.MovingToCounter;
                         agent.SetDestination(currentTarget.position);
                     }
                     else
                     {
+                        Debug.LogWarning("No counter found with the needed food");
                     }
                 }
                 else if (idleTimer >= maxIdleTime && Vector3.Distance(transform.position, startPos) > 0.5f)
                 {
+                    Debug.Log("Idle timeout, returning to start position");
                     currentState = RobotState.ReturningToStart;
                     agent.SetDestination(startPos);
                 }
@@ -97,15 +103,17 @@ public class ServiceRobot : MonoBehaviour
             case RobotState.MovingToCounter:
                 if (ReachedDestination(currentTarget))
                 {
+                    Debug.Log("Reached counter, starting to pick up");
                     currentState = RobotState.PickingUp;
                 }
                 break;
             
             case RobotState.PickingUp:
-                GameObject plate = FindPlateAtCounter(currentTarget, currentPlateTypeNeeded);
+                GameObject plate = FindPlateAtCounter(currentTarget, currentFoodNeeded);
                 
                 if (plate != null)
                 {
+                    Debug.Log($"Found plate with food: {currentFoodNeeded.foodName}");
                     currentPlateObject = plate;
                     currentPlateObject.transform.SetParent(plateHoldPosition);
                     currentPlateObject.transform.localPosition = Vector3.zero;
@@ -119,6 +127,7 @@ public class ServiceRobot : MonoBehaviour
                 }
                 else
                 {
+                    Debug.LogWarning("Plate not found at counter");
                     currentState = RobotState.Idle;
                     idleTimer = 0f; 
                 }
@@ -127,6 +136,7 @@ public class ServiceRobot : MonoBehaviour
             case RobotState.MovingToTable:
                 if (ReachedDestination(currentTarget))
                 {
+                    Debug.Log("Reached table, starting to drop off");
                     currentState = RobotState.DroppingOff;
                 }
                 break;
@@ -134,6 +144,7 @@ public class ServiceRobot : MonoBehaviour
             case RobotState.DroppingOff:
                 if (isCarryingPlate && currentPlateObject != null)
                 {
+                    Debug.Log("Dropping off plate at table");
                     Transform platePoint = currentTable.GetPlatePoint();
                     if (platePoint != null)
                     {
@@ -141,16 +152,15 @@ public class ServiceRobot : MonoBehaviour
                         currentPlateObject.transform.localPosition = Vector3.zero;
                         currentPlateObject.transform.localRotation = Quaternion.identity;
                         
-                        currentTable.PlateDelivered(currentPlateTypeNeeded);
-                        
+                        currentTable.PlateDelivered(currentFoodNeeded);
                     }
                     else
                     {
+                        Debug.LogWarning("No plate point found on table, using table transform");
                         currentPlateObject.transform.SetParent(currentTable.transform);
                         currentPlateObject.transform.localPosition = new Vector3(0, 1f, 0); 
                         
-                        currentTable.PlateDelivered(currentPlateTypeNeeded);
-                        
+                        currentTable.PlateDelivered(currentFoodNeeded);
                     }
                     
                     isCarryingPlate = false;
@@ -165,6 +175,7 @@ public class ServiceRobot : MonoBehaviour
             case RobotState.ReturningToStart:
                 if (ReachedDestination(startPos))
                 {
+                    Debug.Log("Returned to start position");
                     transform.position = startPos;
                     
                     if (startPosition != null)
@@ -185,35 +196,40 @@ public class ServiceRobot : MonoBehaviour
         {
             if (table.NeedsPlate())
             {
+                Debug.Log($"Found table needing plate: {table.name}");
                 return table;
             }
         }
         return null;
     }
 
-    private GameObject FindPlateAtCounter(Transform counter, string plateType)
+    private GameObject FindPlateAtCounter(Transform counter, Foods food)
     {
+        Debug.Log($"Searching for plate with food {food.foodName} at counter {counter.name}");
         Collider[] colliders = Physics.OverlapSphere(counter.position, counterCheckRadius, plateLayer);
         
         foreach (Collider col in colliders)
         {
             if (col.CompareTag("Plate"))
             {
-                if (col.gameObject.name.Contains(plateType))
+                Plate plate = col.GetComponent<Plate>();
+                if (plate != null && plate.food == food)
                 {
+                    Debug.Log($"Found matching plate at counter {counter.name}");
                     return col.gameObject;
                 }
             }
         }
         
+        Debug.LogWarning($"No matching plate found at counter {counter.name}");
         return null;
     }
 
-    private Transform GetCounterWithPlateType(string plateType)
+    private Transform GetCounterWithFood(Foods food)
     {
         foreach (Transform counter in counters)
         {
-            GameObject plate = FindPlateAtCounter(counter, plateType);
+            GameObject plate = FindPlateAtCounter(counter, food);
             if (plate != null)
             {
                 return counter;
