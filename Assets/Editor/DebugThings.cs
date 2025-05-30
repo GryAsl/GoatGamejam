@@ -10,9 +10,9 @@ public class DebugThings : Editor
 
         UIManager script = (UIManager)target;
 
-        if (GUILayout.Button("NewOrder"))
-        {
-            script.NewOrder(); // Veya direkt: Debug.Log("AH");
-        }
+        //if (GUILayout.Button("NewOrder"))
+        //{
+        //    script.NewOrder(); 
+        //}
     }
 }

@@ -24,10 +24,13 @@ public class Player : MonoBehaviour
         if (movement != Vector3.zero)
         {
             Quaternion toRotation = Quaternion.LookRotation(movement, Vector3.up);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, 720 * Time.deltaTime);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, 1440f * Time.deltaTime);
         }
 
         controller.Move(transform.forward * movement.magnitude * moveSpeed * Time.deltaTime);
+
+        if (Input.GetKeyDown(KeyCode.E))
+            Interact();
     }
 
     void Interact()
@@ -35,7 +38,7 @@ public class Player : MonoBehaviour
         Ray ray = new Ray(transform.position, transform.forward);
         if (Physics.Raycast(ray, out RaycastHit hit, interactRange, interactableLayer))
         {
-
+            Debug.Log(hit.collider);
         }
     }
 }

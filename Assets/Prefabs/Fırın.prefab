@@ -99,9 +99,9 @@ GameObject:
   - component: {fileID: 4557913426255949258}
   - component: {fileID: 1800185983923023519}
   - component: {fileID: 7896642201252357179}
-  - component: {fileID: 2946107620507653200}
   - component: {fileID: 6282786261433804464}
   - component: {fileID: 991475260000842754}
+  - component: {fileID: 2962659541382754160}
   m_Layer: 6
   m_Name: "F\u0131r\u0131n"
   m_TagString: Untagged
@@ -181,27 +181,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2946107620507653200
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7797575579701380739}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 64
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 3.8010974, y: 5.0095778, z: 3.7168925}
-  m_Center: {x: -0.042102277, y: 2.5047889, z: -0.00000011920929}
 --- !u!54 &6282786261433804464
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -227,7 +206,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!114 &991475260000842754
 MonoBehaviour:
@@ -241,6 +220,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bcd09153bb0ef643b954dfeb7954d7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collision: 0
+  buildingName: 
+  currentCollision: 0
   greenMaterial: {fileID: 2100000, guid: 6d5f9454d5a0eb64789327cabace7a54, type: 2}
   redMaterial: {fileID: 2100000, guid: c82f8441bbd129d488951969812e7472, type: 2}
+  isGhost: 0
+  lastSnappedPos: {x: 0, y: 0, z: 0}
+--- !u!65 &2962659541382754160
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7797575579701380739}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3.8010974, y: 5.0095778, z: 3.7168925}
+  m_Center: {x: -0.042102277, y: 2.5047889, z: -0.00000011920929}
