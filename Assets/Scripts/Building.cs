@@ -2,34 +2,77 @@
 
 public class Building : MonoBehaviour
 {
+    public string buildingName;
     public bool collision;
-    public Material greenMaterial; // Atanacak materyal
-    public Material redMaterial; // Atanacak materyal
+    public Material greenMaterial; 
+    public Material redMaterial;
+    public bool isGhost;
+
+    Builder builder;
+
+    public Vector3 lastSnappedPos;
+
 
     void Start()
     {
-        
+        builder = GameObject.Find("GameManager").GetComponent<Builder>();
+        if (isGhost)
+        {
+            ReplaceAllMaterials(greenMaterial);
+            if(buildingName == "3d")
+                ReplaceAllMaterials(redMaterial);
+
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (buildingName == "3d" && !builder.tezgahTypeShi && isGhost)
+            ReplaceAllMaterials(redMaterial);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        collision = true;
-        ReplaceAllMaterials(redMaterial);
+        if (!isGhost)
+            return;
+
+        other.TryGetComponent<Building>(out Building building);
+        if (building)
+        {
+            if (building.buildingName == "tezgah" && buildingName == "3d")
+            {
+                Debug.Log("2");
+                builder.tezgahTypeShi = true;
+                lastSnappedPos = builder.snappedPos;
+                transform.position = building.gameObject.transform.GetChild(0).transform.position;
+                ReplaceAllMaterials(greenMaterial);
+            }
+            else
+            {
+                collision = true;
+                ReplaceAllMaterials(redMaterial);
+            }
+        }
+        else
+        {
+            collision = true;
+            ReplaceAllMaterials(redMaterial);
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
+        if (!isGhost)
+            return;
+
         collision = false;
-        ReplaceAllMaterials(greenMaterial);
+        if(buildingName == "3d" && !builder.tezgahTypeShi)
+            ReplaceAllMaterials(redMaterial);
+        else
+            ReplaceAllMaterials(greenMaterial);
+
     }
-
-
 
     public void ReplaceAllMaterials(Material mat)
     {
@@ -48,6 +91,5 @@ public class Building : MonoBehaviour
             renderer.materials = newMats;
         }
 
-        Debug.Log("Tüm materyaller başarıyla değiştirildi.");
     }
 }
