@@ -127,9 +127,9 @@ public class ServiceRobot : MonoBehaviour
                 }
                 else
                 {
-                    Debug.LogWarning("Plate not found at counter");
-                    currentState = RobotState.Idle;
-                    idleTimer = 0f; 
+                    Debug.LogWarning("Plate not found at counter, returning to start position");
+                    currentState = RobotState.ReturningToStart;
+                    agent.SetDestination(startPos);
                 }
                 break;
 
@@ -177,11 +177,7 @@ public class ServiceRobot : MonoBehaviour
                 {
                     Debug.Log("Returned to start position");
                     transform.position = startPos;
-                    
-                    if (startPosition != null)
-                    {
-                        transform.rotation = startPosition.rotation;
-                    }
+                    transform.rotation = Quaternion.identity;
                     
                     currentState = RobotState.Idle;
                     idleTimer = 0f; 
