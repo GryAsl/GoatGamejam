@@ -12,6 +12,9 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI newOrderText;
     public Image newOrderImage;
     public float newOrderSpeedMultiplier = 2f;
+    public float speedMultiplier = 2f;
+
+    public GameObject buildingPanel;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -73,4 +76,32 @@ public class UIManager : MonoBehaviour
             yield return null;
         }
     }
+
+    public IEnumerator TurnOnBuildingPanel()
+    {
+        CanvasGroup cg = buildingPanel.GetComponent<CanvasGroup>();
+        float t = cg.alpha;
+        while (t <= 1f)
+        {
+            t += Time.deltaTime * speedMultiplier;
+            cg.alpha = t;
+            yield return null;
+        }
+    }
+
+    public IEnumerator TurnOffBuildingPanel()
+    {
+        CanvasGroup cg = buildingPanel.GetComponent<CanvasGroup>();
+        float t = cg.alpha;
+        while (t >= 0f)
+        {
+            t -= Time.deltaTime * speedMultiplier;
+            cg.alpha = t;
+            yield return null;
+        }
+    }
+
+
+
+
 }

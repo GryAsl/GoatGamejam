@@ -28,7 +28,7 @@ public class Building : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (buildingName == "3d" && !builder.tezgahTypeShi)
+        if (buildingName == "3d" && !builder.tezgahTypeShi && isGhost)
             ReplaceAllMaterials(redMaterial);
     }
 
