@@ -19,6 +19,11 @@ public class Drone : MonoBehaviour
     [SerializeField] private float detectionRadius = 20f;
     [SerializeField] private LayerMask dishLayer;
     
+    [Header("References")]
+    [SerializeField] private Transform startPositionRef;
+    [SerializeField] private Transform dishesParentRef;
+    [SerializeField] private WashMachine washMachine;
+    
     private enum DroneState
     {
         Idle,
@@ -236,6 +241,12 @@ public class Drone : MonoBehaviour
                         Destroy(dish);
                     }
                     collectedDishes.Clear();
+                    
+                    // Notify wash machine to start washing process
+                    if (washMachine != null)
+                    {
+                        washMachine.StartWashing();
+                    }
                     
                     // Always transition to Idle state after landing
                     currentState = DroneState.Idle;
