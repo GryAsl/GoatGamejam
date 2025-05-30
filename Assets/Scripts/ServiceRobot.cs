@@ -128,10 +128,13 @@ public class ServiceRobot : MonoBehaviour
                 else
                 {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                     Debug.LogWarning("Plate not found at counter, returning to start position");
                     currentState = RobotState.ReturningToStart;
                     agent.SetDestination(startPos);
 =======
+=======
+>>>>>>> Stashed changes
                     Debug.LogWarning("Plate not found at counter");
                     currentState = RobotState.Idle;
                     idleTimer = 0f; 
