@@ -17,14 +17,20 @@ public class ServiceRobot : MonoBehaviour
 
     [Header("Tables")]
     [SerializeField] private List<TableController> tables;
+    
+    [Header("Idle Settings")]
+    [SerializeField] private Transform startPosition;
+    [SerializeField] private float maxIdleTime = 10f;
 
     private bool isCarryingPlate;
     private Transform currentTarget;
     private GameObject currentPlateObject;
     private string currentPlateTypeNeeded;
     private TableController currentTable;
+    private float idleTimer = 0f;
+    private Vector3 startPos;
     
-    private enum RobotState { Idle, MovingToCounter, PickingUp, MovingToTable, DroppingOff }
+    private enum RobotState { Idle, MovingToCounter, PickingUp, MovingToTable, DroppingOff, ReturningToStart }
     private RobotState currentState = RobotState.Idle;
 
     void Start()
@@ -36,17 +42,23 @@ public class ServiceRobot : MonoBehaviour
         
         if (!agent)
         {
-            Debug.LogWarning("No NavMeshAgent found on ServiceRobot. Please assign one.");
         }
         
         if (!plateHoldPosition)
         {
-            // Create a default plate hold position if none exists
             GameObject holdPos = new GameObject("PlateHoldPosition");
             holdPos.transform.parent = transform;
             holdPos.transform.localPosition = new Vector3(0, 1.2f, 0.3f);
             plateHoldPosition = holdPos.transform;
-            Debug.LogWarning("No plate hold position assigned. Created a default one.");
+        }
+        
+        if (startPosition != null)
+        {
+            startPos = startPosition.position;
+        }
+        else
+        {
+            startPos = transform.position;
         }
     }
 
@@ -55,26 +67,30 @@ public class ServiceRobot : MonoBehaviour
         switch (currentState)
         {
             case RobotState.Idle:
-                // Tabak isteyen masa var mı kontrol et
+                idleTimer += Time.deltaTime;
+                
                 TableController tableNeedingPlate = FindTableNeedingPlate();
                 if (tableNeedingPlate != null)
                 {
+                    idleTimer = 0f;
                     currentTable = tableNeedingPlate;
                     currentPlateTypeNeeded = tableNeedingPlate.GetRequestedPlateType();
                     
-                    // Bu tip tabağın olduğu bir counter bul
                     Transform counterWithPlate = GetCounterWithPlateType(currentPlateTypeNeeded);
                     if (counterWithPlate != null)
                     {
                         currentTarget = counterWithPlate;
                         currentState = RobotState.MovingToCounter;
                         agent.SetDestination(currentTarget.position);
-                        Debug.Log("Moving to counter to pick up " + currentPlateTypeNeeded + " for table " + currentTable.name);
                     }
                     else
                     {
-                        Debug.Log("No counter has the needed plate type: " + currentPlateTypeNeeded);
                     }
+                }
+                else if (idleTimer >= maxIdleTime && Vector3.Distance(transform.position, startPos) > 0.5f)
+                {
+                    currentState = RobotState.ReturningToStart;
+                    agent.SetDestination(startPos);
                 }
                 break;
             
@@ -82,44 +98,29 @@ public class ServiceRobot : MonoBehaviour
                 if (ReachedDestination(currentTarget))
                 {
                     currentState = RobotState.PickingUp;
-                    Debug.Log("Reached counter, attempting to pick up plate");
                 }
                 break;
             
             case RobotState.PickingUp:
-                // Counter alanındaki tabakları kontrol et
                 GameObject plate = FindPlateAtCounter(currentTarget, currentPlateTypeNeeded);
                 
                 if (plate != null)
                 {
-                    // Tabağı al
                     currentPlateObject = plate;
                     currentPlateObject.transform.SetParent(plateHoldPosition);
                     currentPlateObject.transform.localPosition = Vector3.zero;
                     currentPlateObject.transform.localRotation = Quaternion.identity;
                     
                     isCarryingPlate = true;
-                    Debug.Log("Picked up plate: " + currentPlateTypeNeeded);
                     
-                    // Tabağı götüreceğimiz masanın plate point'i
-                    Transform tablePoint = currentTable.GetPlatePoint();
-                    if (tablePoint != null)
-                    {
-                        currentTarget = tablePoint;
-                        agent.SetDestination(currentTarget.position);
-                        currentState = RobotState.MovingToTable;
-                        Debug.Log("Moving to table " + currentTable.name + " to deliver plate");
-                    }
-                    else
-                    {
-                        Debug.LogWarning("No plate point found on table " + currentTable.name);
-                        currentState = RobotState.Idle;
-                    }
+                    currentTarget = currentTable.transform;
+                    agent.SetDestination(currentTarget.position);
+                    currentState = RobotState.MovingToTable;
                 }
                 else
                 {
-                    Debug.LogWarning("No plate of type " + currentPlateTypeNeeded + " found at counter!");
                     currentState = RobotState.Idle;
+                    idleTimer = 0f; 
                 }
                 break;
 
@@ -127,34 +128,57 @@ public class ServiceRobot : MonoBehaviour
                 if (ReachedDestination(currentTarget))
                 {
                     currentState = RobotState.DroppingOff;
-                    Debug.Log("Reached table, dropping off plate");
                 }
                 break;
             
             case RobotState.DroppingOff:
                 if (isCarryingPlate && currentPlateObject != null)
                 {
-                    // Tabağı masaya yerleştir
-                    currentPlateObject.transform.SetParent(currentTarget);
-                    currentPlateObject.transform.localPosition = Vector3.zero;
-                    currentPlateObject.transform.localRotation = Quaternion.identity;
+                    Transform platePoint = currentTable.GetPlatePoint();
+                    if (platePoint != null)
+                    {
+                        currentPlateObject.transform.SetParent(platePoint);
+                        currentPlateObject.transform.localPosition = Vector3.zero;
+                        currentPlateObject.transform.localRotation = Quaternion.identity;
+                        
+                        currentTable.PlateDelivered(currentPlateTypeNeeded);
+                        
+                    }
+                    else
+                    {
+                        currentPlateObject.transform.SetParent(currentTable.transform);
+                        currentPlateObject.transform.localPosition = new Vector3(0, 1f, 0); 
+                        
+                        currentTable.PlateDelivered(currentPlateTypeNeeded);
+                        
+                    }
                     
-                    // Masaya tabak geldiğini bildir
-                    currentTable.PlateDelivered(currentPlateTypeNeeded);
-                    
-                    Debug.Log("Plate delivered to table " + currentTable.name);
                     isCarryingPlate = false;
                     currentPlateObject = null;
                     currentTable = null;
                 }
                 
-                // Idle state'e dön
                 currentState = RobotState.Idle;
+                idleTimer = 0f; 
+                break;
+                
+            case RobotState.ReturningToStart:
+                if (ReachedDestination(startPos))
+                {
+                    transform.position = startPos;
+                    
+                    if (startPosition != null)
+                    {
+                        transform.rotation = startPosition.rotation;
+                    }
+                    
+                    currentState = RobotState.Idle;
+                    idleTimer = 0f; 
+                }
                 break;
         }
     }
-
-    // Tabak isteyen bir masa bul
+    
     private TableController FindTableNeedingPlate()
     {
         foreach (TableController table in tables)
@@ -169,15 +193,12 @@ public class ServiceRobot : MonoBehaviour
 
     private GameObject FindPlateAtCounter(Transform counter, string plateType)
     {
-        // Counter çevresindeki tüm collider'ları bul
         Collider[] colliders = Physics.OverlapSphere(counter.position, counterCheckRadius, plateLayer);
         
         foreach (Collider col in colliders)
         {
-            // Tag'i "Plate" olan objeleri kontrol et
             if (col.CompareTag("Plate"))
             {
-                // İsim üzerinden plate tipini kontrol et
                 if (col.gameObject.name.Contains(plateType))
                 {
                     return col.gameObject;
@@ -206,13 +227,16 @@ public class ServiceRobot : MonoBehaviour
     {
         if (!target) return false;
         
-        // NavMeshAgent'a göre hedefe ulaşıp ulaşmadığımızı kontrol et
+        return ReachedDestination(target.position);
+    }
+    
+    private bool ReachedDestination(Vector3 targetPosition)
+    {
         return !agent.pathPending && 
                agent.remainingDistance <= agent.stoppingDistance && 
                (!agent.hasPath || agent.velocity.sqrMagnitude < 0.1f);
     }
-
-    // Counter check alanını ve mevcut hedefi görselleştir
+    
     private void OnDrawGizmos()
     {
         if (counters != null)
@@ -231,6 +255,12 @@ public class ServiceRobot : MonoBehaviour
         {
             Gizmos.color = Color.red;
             Gizmos.DrawLine(transform.position, currentTarget.position);
+        }
+        
+        if (startPosition != null)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawSphere(startPosition.position, 0.3f);
         }
     }
 }
