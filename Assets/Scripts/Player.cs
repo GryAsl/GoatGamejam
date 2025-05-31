@@ -8,18 +8,26 @@ public class Player : MonoBehaviour
 
     private CharacterController controller;
     private Vector3 movement;
+    private Animator animator;
+    private bool isInteracting;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
     {
+        if (isInteracting) return;
+
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveZ = Input.GetAxisRaw("Vertical");
 
         movement = new Vector3(moveX, 0f, moveZ).normalized;
+
+        // Update animation parameters
+        animator.SetFloat("Speed", movement.magnitude);
 
         if (movement != Vector3.zero)
         {
@@ -38,7 +46,15 @@ public class Player : MonoBehaviour
         Ray ray = new Ray(transform.position, transform.forward);
         if (Physics.Raycast(ray, out RaycastHit hit, interactRange, interactableLayer))
         {
+            isInteracting = true;
+            animator.SetTrigger("Interact");
             Debug.Log(hit.collider);
         }
+    }
+
+    // Animation event callback
+    public void OnInteractComplete()
+    {
+        isInteracting = false;
     }
 }

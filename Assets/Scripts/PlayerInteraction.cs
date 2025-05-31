@@ -7,6 +7,7 @@ public class PlayerInteraction : MonoBehaviour
     public Vector3 boxSize = new Vector3(0.4f, 0.4f, 0.4f);
     public LayerMask interactableLayer;
     public KeyCode interactKey = KeyCode.E;
+    public float interactionHeight = 1f; // Etkileşim kutusunun yüksekliği
 
     [Header("Hold Settings")]
     public Transform holdPoint;
@@ -44,7 +45,7 @@ public class PlayerInteraction : MonoBehaviour
 
     void TryInteract()
     {
-        Vector3 origin = transform.position + transform.forward * interactRange;
+        Vector3 origin = transform.position + Vector3.up * interactionHeight + transform.forward * interactRange;
         Collider[] hits = Physics.OverlapBox(origin, boxSize * 0.5f, Quaternion.identity, interactableLayer);
 
         Debug.Log($"TryInteract: {hits.Length} collider(s) detected.");
@@ -170,7 +171,7 @@ public class PlayerInteraction : MonoBehaviour
         isHoldingItem = false;
 
         // DropZone tespiti
-        Vector3 origin = transform.position + transform.forward * interactRange;
+        Vector3 origin = transform.position + Vector3.up * interactionHeight + transform.forward * interactRange;
         Collider[] hits = Physics.OverlapBox(origin, boxSize * 0.5f, Quaternion.identity, interactableLayer);
 
         Transform dropParent = null;
@@ -217,7 +218,7 @@ public class PlayerInteraction : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.cyan;
-        Vector3 center = transform.position + transform.forward * interactRange;
+        Vector3 center = transform.position + Vector3.up * interactionHeight + transform.forward * interactRange;
         Gizmos.DrawWireCube(center, boxSize);
     }
 }

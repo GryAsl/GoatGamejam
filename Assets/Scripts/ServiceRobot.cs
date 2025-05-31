@@ -202,7 +202,7 @@ public class ServiceRobot : MonoBehaviour
     private GameObject FindPlateAtCounter(Transform counter, Foods food)
     {
         Debug.Log($"Searching for plate with food {food.foodName} at counter {counter.name}");
-        Collider[] colliders = Physics.OverlapSphere(counter.position, counterCheckRadius, plateLayer);
+        Collider[] colliders = Physics.OverlapSphere(counter.position, counterCheckRadius);
         
         foreach (Collider col in colliders)
         {
