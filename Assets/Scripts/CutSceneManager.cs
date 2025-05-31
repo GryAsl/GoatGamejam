@@ -7,12 +7,15 @@ public class CutSceneManager : MonoBehaviour
 {
     public float speedMultiplier;
     public float waitTime;
+
+    [Header("CutScene 1")]
+    public Camera cam1;
     public SpriteRenderer im1;
     public SpriteRenderer im2;
     public SpriteRenderer im3;
+    public float endTimer;
     void Start()
     {
-        StartCoroutine(CutScene1());
     }
 
     // Update is called once per frame
@@ -23,6 +26,9 @@ public class CutSceneManager : MonoBehaviour
 
     public IEnumerator CutScene1()
     {
+        cam1.gameObject.SetActive (true);
+
+        yield return new WaitForSecondsRealtime(1f);
         Color imColor = im1.color;
         while (imColor.a <= 1f)
         {
@@ -51,6 +57,6 @@ public class CutSceneManager : MonoBehaviour
             yield return null;
         }
 
-        yield return null;
+        yield return new WaitForSecondsRealtime(endTimer);
     }
 }

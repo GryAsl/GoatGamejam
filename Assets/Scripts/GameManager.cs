@@ -4,7 +4,10 @@ public class GameManager : MonoBehaviour
 {
     UIManager uiMan;
     public AudioManager audioManager;
+    public CutSceneManager cutSceneManager;
     public bool isGameOn;
+    public Camera mainCam;
+
     public enum GameState
     {
         mainMenu,
@@ -17,6 +20,7 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        
         uiMan = GetComponent<UIManager>();
     }
 
@@ -48,7 +52,8 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-
+        mainCam.enabled = false;
+        StartCoroutine(cutSceneManager.CutScene1());
         ChangeState(GameState.normal);
         audioManager.ChangeMusicToInGame();
         StartCoroutine(uiMan.TurnOffPanel(uiMan.mainMenu));
