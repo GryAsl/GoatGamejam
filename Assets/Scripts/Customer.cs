@@ -9,9 +9,12 @@ public class Customer : MonoBehaviour
     private NavMeshAgent agent;
     private TableController currentTable;
     private Vector3 targetPosition;
+    private Animator animator;
+
 
     void Awake()
     {
+        animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         uiMan = GameObject.Find("GameManager").GetComponent<UIManager>();
         Debug.Log("Customer Awake - Agent and UIManager initialized");
@@ -21,7 +24,10 @@ public class Customer : MonoBehaviour
     {
         float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
         Debug.Log($"Customer Update - Distance to target: {distanceToTarget}, Stopping distance: {agent.stoppingDistance}");
-        
+        float speed = agent.velocity.magnitude;   
+        animator.SetFloat("Speed", speed); 
+        Debug.Log($"Speed bozuk reis");
+
         if (distanceToTarget <= agent.stoppingDistance)
         {
             Debug.Log("Customer reached destination point");
