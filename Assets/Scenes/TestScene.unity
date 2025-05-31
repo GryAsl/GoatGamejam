@@ -1602,12 +1602,16 @@ MonoBehaviour:
   - {fileID: 3146136214933431216, guid: cd276733049670547a17c2915ca46e14, type: 3}
   pointData:
   - point: {fileID: 713343796}
+    table: {fileID: 0}
     isEmpty: 1
   - point: {fileID: 1245264282}
+    table: {fileID: 0}
     isEmpty: 1
   - point: {fileID: 823291666}
+    table: {fileID: 0}
     isEmpty: 1
   - point: {fileID: 1808873820}
+    table: {fileID: 0}
     isEmpty: 1
 --- !u!1 &392778701
 GameObject:
@@ -7007,7 +7011,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.016666668
+  m_VoxelSize: 0.09
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 99dfcaa18d15d4f4aa39c13654760ba1, type: 2}
   m_BuildHeightMesh: 0
@@ -7574,6 +7578,8 @@ SceneRoots:
   - {fileID: 224533925}
   - {fileID: 1239349428}
   - {fileID: 1783631955}
+  - {fileID: 379731313}
+  - {fileID: 996671038}
   - {fileID: 1141730056}
   - {fileID: 1701583256}
   - {fileID: 1316024939}
@@ -7581,10 +7587,8 @@ SceneRoots:
   - {fileID: 184681125}
   - {fileID: 1872270826}
   - {fileID: 20110754}
-  - {fileID: 996671038}
   - {fileID: 236877265}
   - {fileID: 1386553101}
   - {fileID: 652548939}
   - {fileID: 828817264}
-  - {fileID: 379731313}
   - {fileID: 120402676}
