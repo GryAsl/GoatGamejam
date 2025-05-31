@@ -211,6 +211,30 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
+    // ✅ ÇÖPKUTUSU İÇİN EKLENDİ
+    public bool IsHoldingItem()
+    {
+        return isHoldingItem;
+    }
+
+    // ✅ ÇÖPKUTUSU İÇİN EKLENDİ  
+    public void TrashItem()
+    {
+        if (isHoldingItem && heldItem != null)
+        {
+            Debug.Log($"Trashing item: {heldItem.name}");
+            
+            // Objeyi yok et
+            Destroy(heldItem);
+            
+            // Değişkenleri sıfırla
+            heldItem = null;
+            isHoldingItem = false;
+            
+            Debug.Log("Item successfully trashed!");
+        }
+    }
+
     public bool HasItem() => isHoldingItem;
     public GameObject GetHeldItem() => heldItem;
 
