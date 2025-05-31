@@ -52,8 +52,8 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        mainCam.enabled = false;
-        StartCoroutine(cutSceneManager.CutScene1());
+        //mainCam.enabled = false;
+        //StartCoroutine(cutSceneManager.CutScene1());
         ChangeState(GameState.normal);
         audioManager.ChangeMusicToInGame();
         StartCoroutine(uiMan.TurnOffPanel(uiMan.mainMenu));
