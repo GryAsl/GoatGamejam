@@ -209,7 +209,7 @@ public class ServiceRobot : MonoBehaviour
             if (col.CompareTag("Plate"))
             {
                 Plate plate = col.GetComponent<Plate>();
-                if (plate != null && plate.food == food)
+                if (plate != null && plate.foodsOnPlate.Exists(f => f.foodData == food))
                 {
                     Debug.Log($"Found matching plate at counter {counter.name}");
                     return col.gameObject;

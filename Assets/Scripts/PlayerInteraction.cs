@@ -13,6 +13,15 @@ public class PlayerInteraction : MonoBehaviour
     private GameObject heldItem;
     private bool isHoldingItem = false;
 
+    private float interactCooldown = 0.25f;
+    private float lastInteractTime = -1f;
+
+    void Awake()
+    {
+        if (interactableLayer == 0)
+            interactableLayer = LayerMask.GetMask("Interactable");
+    }
+
     void Update()
     {
         HandleInteractionInput();
@@ -20,8 +29,11 @@ public class PlayerInteraction : MonoBehaviour
 
     void HandleInteractionInput()
     {
+        if (Time.time - lastInteractTime < interactCooldown)
+            return;
         if (Input.GetKeyDown(interactKey))
         {
+            lastInteractTime = Time.time;
             // Eğer eşya tutuyorsa bırak, yoksa alma dene
             if (isHoldingItem)
                 Drop();
@@ -33,19 +45,70 @@ public class PlayerInteraction : MonoBehaviour
     void TryInteract()
     {
         Vector3 origin = transform.position + transform.forward * interactRange;
-
         Collider[] hits = Physics.OverlapBox(origin, boxSize * 0.5f, Quaternion.identity, interactableLayer);
 
+        Debug.Log($"TryInteract: {hits.Length} collider(s) detected.");
         if (hits.Length == 0)
             return;
 
         foreach (Collider col in hits)
         {
-            IInteractable interactable = col.GetComponent<IInteractable>();
-            if (interactable != null)
+            Debug.Log($"Checking collider: {col.name}, tag: {col.tag}");
+            // Eğer elimizde yemek varsa ve etkileşime geçtiğimiz şey tabak ise
+            if (isHoldingItem && col.CompareTag("Plate"))
             {
-                interactable.Interact(this);
-                break;
+                Debug.Log("Elimde yemek var ve karşımdaki tabak.");
+                Food heldFood = heldItem.GetComponent<Food>();
+                Plate plate = col.GetComponent<Plate>();
+                Debug.Log($"heldFood: {(heldFood != null ? heldFood.name : "null")}, plate: {(plate != null ? plate.name : "null")}");
+                
+                if (heldFood != null && plate != null && plate.CanAddFood(heldFood))
+                {
+                    Debug.Log("Yemek eklendi (AddFood çağrılıyor)");
+                    plate.AddFood(heldFood);
+                    heldItem = null;
+                    isHoldingItem = false;
+                    return;
+                }
+                else
+                {
+                    Debug.Log("Yemek eklenemedi: heldFood veya plate null ya da CanAddFood false");
+                }
+            }
+            // Eğer elimizde tabak varsa ve etkileşime geçtiğimiz şey yemek ise
+            else if (isHoldingItem && heldItem.CompareTag("Plate"))
+            {
+                Debug.Log("Elimde tabak var ve karşımdaki yemek.");
+                Food foodOnGround = col.GetComponent<Food>();
+                Plate heldPlate = heldItem.GetComponent<Plate>();
+                Debug.Log($"foodOnGround: {(foodOnGround != null ? foodOnGround.name : "null")}, heldPlate: {(heldPlate != null ? heldPlate.name : "null")}");
+                
+                if (foodOnGround != null && heldPlate != null && heldPlate.CanAddFood(foodOnGround))
+                {
+                    Debug.Log("Tabaktayken yemek eklendi (AddFood çağrılıyor)");
+                    heldPlate.AddFood(foodOnGround);
+                    return;
+                }
+                else
+                {
+                    Debug.Log("Tabaktayken yemek eklenemedi: foodOnGround veya heldPlate null ya da CanAddFood false");
+                }
+            }
+            // Normal etkileşim
+            else
+            {
+                Debug.Log("Normal etkileşim deneniyor.");
+                IInteractable interactable = col.GetComponent<IInteractable>();
+                if (interactable != null)
+                {
+                    Debug.Log("IInteractable bulundu, Interact çağrılıyor.");
+                    interactable.Interact(this);
+                    break;
+                }
+                else
+                {
+                    Debug.Log("IInteractable bulunamadı.");
+                }
             }
         }
     }
@@ -58,6 +121,32 @@ public class PlayerInteraction : MonoBehaviour
             return;
         }
 
+        // Eğer item tabak ise, direkt al (yemekleriyle birlikte)
+        if (item.CompareTag("Plate"))
+        {
+            heldItem = item;
+            isHoldingItem = true;
+
+            item.transform.SetParent(holdPoint);
+            item.transform.localPosition = Vector3.zero;
+            item.transform.localRotation = Quaternion.identity;
+
+            if (item.TryGetComponent(out Rigidbody rb))
+            {
+                rb.isKinematic = true;
+                rb.detectCollisions = false;
+            }
+            return;
+        }
+
+        // Eğer item Food ise ve tabağa kitlendiyse alma!
+        Food food = item.GetComponent<Food>();
+        if (food != null && food.isOnPlate)
+        {
+            Debug.Log("Bu yemek tabağa kitli, alınamaz!");
+            return;
+        }
+
         heldItem = item;
         isHoldingItem = true;
 
@@ -65,10 +154,10 @@ public class PlayerInteraction : MonoBehaviour
         item.transform.localPosition = Vector3.zero;
         item.transform.localRotation = Quaternion.identity;
 
-        if (item.TryGetComponent(out Rigidbody rb))
+        if (item.TryGetComponent(out Rigidbody rb2))
         {
-            rb.isKinematic = true;
-            rb.detectCollisions = false;
+            rb2.isKinematic = true;
+            rb2.detectCollisions = false;
         }
     }
 
@@ -85,33 +174,39 @@ public class PlayerInteraction : MonoBehaviour
         Collider[] hits = Physics.OverlapBox(origin, boxSize * 0.5f, Quaternion.identity, interactableLayer);
 
         Transform dropParent = null;
+        DropZone dropZone = null;
         foreach (Collider col in hits)
         {
             if (col.CompareTag("DropZone"))  // DropZone objelerine bu tag'ı ver!
             {
-                dropParent = col.transform;
-                break;
+                dropZone = col.GetComponent<DropZone>();
+                if (dropZone != null && !dropZone.IsOccupied)
+                {
+                    dropParent = col.transform;
+                    break;
+                }
             }
         }
 
-        // Eğer bir DropZone varsa, oraya parent et
+        // Eğer bir DropZone varsa ve boşsa, oraya parent et
         if (dropParent != null)
         {
             itemToDrop.transform.SetParent(dropParent);
-            itemToDrop.transform.localPosition = Vector3.zero; // DropZone'un ortasına yerleştir
+            itemToDrop.transform.localPosition = Vector3.zero;
             itemToDrop.transform.localRotation = Quaternion.identity;
+            dropZone.SetItem(itemToDrop);
+
+            if (itemToDrop.TryGetComponent(out Rigidbody rb))
+            {
+                rb.isKinematic = false;
+                rb.detectCollisions = true;
+            }
         }
+        // DropZone yoksa veya doluysa eşyayı elinde tut
         else
         {
-            // Sahneye serbest bırak
-            itemToDrop.transform.SetParent(null);
-            itemToDrop.transform.position = holdPoint.position + transform.forward * 0.5f;
-        }
-
-        if (itemToDrop.TryGetComponent(out Rigidbody rb))
-        {
-            rb.isKinematic = false;
-            rb.detectCollisions = true;
+            heldItem = itemToDrop;
+            isHoldingItem = true;
         }
     }
 

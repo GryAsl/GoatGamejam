@@ -18,6 +18,18 @@ public class DropZone : MonoBehaviour
         item.transform.SetParent(transform);
         item.transform.localPosition = Vector3.zero;
         item.transform.localRotation = Quaternion.identity;
+
+        // Eğer DropZone'da tabak varsa ve yeni bırakılan item yemekse, tabağa ekle
+        Plate plate = GetComponentInChildren<Plate>();
+        Food food = item.GetComponent<Food>();
+        if (plate != null && food != null)
+        {
+            if (plate.CanAddFood(food))
+            {
+                plate.AddFood(food);
+                currentItem = null; // Artık DropZone'da item yok, tabakta!
+            }
+        }
     }
 
     public void ClearItem()

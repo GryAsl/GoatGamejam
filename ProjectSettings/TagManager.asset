@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Plate
   - DropZone
+  - Food
   layers:
   - Default
   - TransparentFX

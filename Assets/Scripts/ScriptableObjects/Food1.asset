@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe8e0138cde06ec47a8c07230b08baef, type: 3}
   m_Name: Food1
   m_EditorClassIdentifier: 
-  foodName: Annen
-  Ingredients: Sevgi, kucak, metal.
+  foodName: Et
+  Ingredients: "K\u0131rm\u0131\u0131 filament"
   maxTime: 6

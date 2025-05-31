@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe8e0138cde06ec47a8c07230b08baef, type: 3}
   m_Name: Food2
   m_EditorClassIdentifier: 
-  foodName: Baban
-  Ingredients: "A\u015Fk, mutluluk, kedi."
+  foodName: Pattis
+  Ingredients: "Sar\u0131 Filament"
   maxTime: 6
