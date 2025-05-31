@@ -17,7 +17,7 @@ public class Building : MonoBehaviour
 
     void Start()
     {
-                Debug.LogError("222 : "+ isGhost);
+              
         builder = GameObject.Find("GameManager").GetComponent<Builder>();
         if (isGhost)
         {

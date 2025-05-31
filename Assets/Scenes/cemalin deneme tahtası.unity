@@ -256,46 +256,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 4157963723862492772, guid: 32164314883ac3e4e926eea07b00b020, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 898367446}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3674899184667368670, guid: 32164314883ac3e4e926eea07b00b020, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 128531580}
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 32164314883ac3e4e926eea07b00b020, type: 3}
---- !u!1 &128531578 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3674899184667368670, guid: 32164314883ac3e4e926eea07b00b020, type: 3}
-  m_PrefabInstance: {fileID: 128531577}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &128531579 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4157963723862492772, guid: 32164314883ac3e4e926eea07b00b020, type: 3}
-  m_PrefabInstance: {fileID: 128531577}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &128531580
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 128531578}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80207322af4a9e645a3866ae0d24c24e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Yemekpos: {fileID: 898367446}
-  food1Phase1: {fileID: 7734930141309836921, guid: 7479eac32efab13479ed84f24384103d, type: 3}
-  food1Phase2: {fileID: 1311646183805593089, guid: 556c1f9e6eda6774e9b6cddb0ce92649, type: 3}
-  food1Phase3: {fileID: 4471136168511394615, guid: 046396a5836323f489d60abff9ca787b, type: 3}
-  food2Phase1: {fileID: 6242535060785814425, guid: 443f032452c9791439558e1cf48f8948, type: 3}
-  food2Phase2: {fileID: 2255089186304620536, guid: 88eb79a937545b14b95231981c803703, type: 3}
-  food2Phase3: {fileID: 4576817842305428472, guid: 2750f821e1e859b439bd6781ca58a08f, type: 3}
-  food1: {fileID: 11400000, guid: f9be206f90562ad428164bd541e728eb, type: 2}
-  food2: {fileID: 11400000, guid: 2395330713558174982ed5649ff2445d, type: 2}
 --- !u!1001 &153453647
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1815,37 +1778,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9b41e970fd543d4b88efd466f9e441a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &898367445
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 898367446}
-  m_Layer: 0
-  m_Name: YIMAH
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &898367446
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 898367445}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 128531579}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &948941057
 PrefabInstance:
   m_ObjectHideFlags: 0
