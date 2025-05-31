@@ -16,11 +16,17 @@ public class PlayerInteraction : MonoBehaviour
 
     private float interactCooldown = 0.25f;
     private float lastInteractTime = -1f;
+    private Animator animator;
 
     void Awake()
     {
         if (interactableLayer == 0)
             interactableLayer = LayerMask.GetMask("Interactable");
+    }
+
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -103,6 +109,7 @@ public class PlayerInteraction : MonoBehaviour
                 if (interactable != null)
                 {
                     Debug.Log("IInteractable bulundu, Interact çağrılıyor.");
+                    animator.SetTrigger("Interact");
                     interactable.Interact(this);
                     break;
                 }

@@ -3,9 +3,11 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     UIManager uiMan;
-
+    public AudioManager audioManager;
+    public bool isGameOn;
     public enum GameState
     {
+        mainMenu,
         normal,
         building
     }
@@ -34,12 +36,23 @@ public class GameManager : MonoBehaviour
         gameState = state;
         switch (gameState)
         {
+
             case GameState.normal:
-                StartCoroutine(uiMan.TurnOffBuildingPanel());
+                StartCoroutine(uiMan.TurnOffPanel(uiMan.buildingPanel));
                 break;
             case GameState.building:
-                StartCoroutine(uiMan.TurnOnBuildingPanel());
+                StartCoroutine(uiMan.TurnOnPanel(uiMan.buildingPanel));
                 break;
         }
+    }
+
+    public void StartGame()
+    {
+
+        ChangeState(GameState.normal);
+        audioManager.ChangeMusicToInGame();
+        StartCoroutine(uiMan.TurnOffPanel(uiMan.mainMenu));
+        isGameOn = true;
+
     }
 }

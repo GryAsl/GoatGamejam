@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour
     public float UIspeedMultiplier = 2f;
 
     public GameObject buildingPanel;
+    public GameObject mainMenu;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -63,7 +64,7 @@ public class UIManager : MonoBehaviour
             yield return null;
         }
 
-        yield return new WaitForSecondsRealtime(1f);
+        yield return new WaitForSecondsRealtime(.5f);
 
         imColor = im.color;
         while (text.alpha >= 0f)
@@ -75,9 +76,10 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public IEnumerator TurnOnBuildingPanel()
+    public IEnumerator TurnOnPanel(GameObject GO)
     {
-        CanvasGroup cg = buildingPanel.GetComponent<CanvasGroup>();
+        CanvasGroup cg = GO.GetComponent<CanvasGroup>();
+        cg.interactable = true;
         float t = cg.alpha;
         while (t <= 1f)
         {
@@ -87,9 +89,10 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public IEnumerator TurnOffBuildingPanel()
+    public IEnumerator TurnOffPanel(GameObject GO)
     {
-        CanvasGroup cg = buildingPanel.GetComponent<CanvasGroup>();
+        CanvasGroup cg = GO.GetComponent<CanvasGroup>();
+        cg.interactable = false;
         float t = cg.alpha;
         while (t >= 0f)
         {

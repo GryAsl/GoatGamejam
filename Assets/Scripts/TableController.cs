@@ -27,7 +27,7 @@ public class TableController : MonoBehaviour
     // Tabak isteği var mı?
     public bool NeedsPlate()
     {
-        Debug.Log($"Table {name} NeedsPlate called. Needs plate: {needsPlate}, Requested food: {(requestedFood != null ? requestedFood.foodName : "null")}");
+        //Debug.Log($"Table {name} NeedsPlate called. Needs plate: {needsPlate}, Requested food: {(requestedFood != null ? requestedFood.foodName : "null")}");
         return needsPlate;
     }
     

@@ -11,14 +11,20 @@ public class Player : MonoBehaviour
     private Animator animator;
     private bool isInteracting;
 
+    GameManager gm;
+
     void Start()
     {
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
     }
 
     void Update()
     {
+        if (!gm.isGameOn) return;
+
         if (isInteracting) return;
 
         float moveX = Input.GetAxisRaw("Horizontal");
@@ -32,7 +38,7 @@ public class Player : MonoBehaviour
         if (movement != Vector3.zero)
         {
             Quaternion toRotation = Quaternion.LookRotation(movement, Vector3.up);
-            transform.rotation = Quaternion.Lerp( transform.rotation, toRotation, Time.deltaTime * 22f);
+            transform.rotation = Quaternion.Lerp( transform.rotation, toRotation, Time.deltaTime * 10f);
         }
 
         controller.Move(transform.forward * movement.magnitude * moveSpeed * Time.deltaTime);
@@ -47,7 +53,7 @@ public class Player : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit, interactRange, interactableLayer))
         {
             isInteracting = true;
-            animator.SetTrigger("Interact");
+           
             Debug.Log(hit.collider);
         }
     }
