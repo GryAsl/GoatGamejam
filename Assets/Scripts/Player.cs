@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
         if (movement != Vector3.zero)
         {
             Quaternion toRotation = Quaternion.LookRotation(movement, Vector3.up);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, 1440f * Time.deltaTime);
+            transform.rotation = toRotation;
         }
 
         controller.Move(transform.forward * movement.magnitude * moveSpeed * Time.deltaTime);
