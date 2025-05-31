@@ -5,6 +5,7 @@ public class InterectBox : MonoBehaviour
 {
     public GameObject item;
     public GameObject Kitchenware;
+    public GameObject Plate;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

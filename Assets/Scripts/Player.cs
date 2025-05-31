@@ -64,6 +64,10 @@ public class Player : MonoBehaviour
             currentItem.gameObject.transform.SetParent(gameObject.transform);
             currentItem.gameObject.GetComponent<BoxCollider>().enabled = false;
         }
+        else if (currentKitchenware.GetComponent<MyKitchenware>().KitchenwareName == "Plate" && currentItem.GetComponent<MyItem>().itemName == "Meat")
+        {
+            currentKitchenware.GetComponent<MyKitchenware>().plate.AddFood(currentItem.GetComponent<Food>());
+        }
         else if (currentKitchenware.GetComponent<MyKitchenware>().KitchenwareName == "3D" && currentKitchenware.GetComponent<MyKitchenware>().alreadyCooked)
         {
                 currentKitchenware.GetComponent<MyKitchenware>().SpawnFood(itemTransform);
