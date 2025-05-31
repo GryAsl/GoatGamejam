@@ -10,6 +10,7 @@ public class Drone : MonoBehaviour
     [SerializeField] private float hoverHeight = 5f;
     [SerializeField] private float landingThreshold = 0.1f;
     [SerializeField] private float pickupDistance = 1.5f;
+    [SerializeField] public float AngularSpeed = 800f;
     
     [Header("Positions")]
     [SerializeField] private Transform startPosition;
@@ -23,6 +24,11 @@ public class Drone : MonoBehaviour
     [SerializeField] private Transform startPositionRef;
     [SerializeField] private Transform dishesParentRef;
     [SerializeField] private WashMachine washMachine;
+    [SerializeField] private Transform Pervane1;
+    [SerializeField] private Transform Pervane2;
+    [SerializeField] private Transform Pervane3;
+    [SerializeField] private Transform Pervane4;
+
     
     private enum DroneState
     {
@@ -100,6 +106,15 @@ public class Drone : MonoBehaviour
 
     void Update()
     {
+        if (Pervane1 != null)
+            ((Transform)Pervane1).Rotate(0f,  Time.deltaTime * AngularSpeed, 0f );
+        if (Pervane2 != null) 
+            ((Transform)Pervane2).Rotate(0f,  Time.deltaTime * AngularSpeed, 0f );
+        if (Pervane3 != null)
+            ((Transform)Pervane3).Rotate(0f,  Time.deltaTime * AngularSpeed, 0f );
+        if (Pervane4 != null)
+            ((Transform)Pervane4).Rotate(0f,  Time.deltaTime * AngularSpeed, 0f);
+
         // Diğer mantıklarınızı koruyarak, listeleri sık sık temizlemek için null kontrolleri:
         detectedDishes.RemoveAll(dish => dish == null || !dish.gameObject.activeInHierarchy);
         collectedDishes.RemoveAll(dish => dish == null || !dish.activeInHierarchy);
