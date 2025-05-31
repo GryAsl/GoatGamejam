@@ -144,7 +144,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98a993e3536f1414bb431757b18f8b3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  foodsOnPlate: []
+  foodsOnPlate:
+  - {fileID: 0}
   foodPositions:
   - {x: 0, y: 0.02, z: -0.02}
   - {x: 0, y: 0, z: 0}
