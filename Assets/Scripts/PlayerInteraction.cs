@@ -210,7 +210,6 @@ public class PlayerInteraction : MonoBehaviour
                 rb.detectCollisions = true;
             }
         }
-        
         // DropZone yoksa veya doluysa eşyayı elinde tut
         else
         {
@@ -219,13 +218,13 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
-    // ÇÖPKUTUSU İÇİN EKLENDİ
+    // ✅ ÇÖPKUTUSU İÇİN EKLENDİ
     public bool IsHoldingItem()
     {
         return isHoldingItem;
     }
 
-    //  ÇÖPKUTUSU İÇİN EKLENDİ  
+    // ✅ ÇÖPKUTUSU İÇİN EKLENDİ  
     public void TrashItem()
     {
         if (isHoldingItem && heldItem != null)

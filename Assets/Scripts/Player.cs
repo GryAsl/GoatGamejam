@@ -38,7 +38,7 @@ public class Player : MonoBehaviour
         if (movement != Vector3.zero)
         {
             Quaternion toRotation = Quaternion.LookRotation(movement, Vector3.up);
-            transform.rotation = Quaternion.Lerp( transform.rotation, toRotation, Time.deltaTime * 12f);
+            transform.rotation = Quaternion.Lerp( transform.rotation, toRotation, Time.deltaTime * 10f);
         }
 
         controller.Move(transform.forward * movement.magnitude * moveSpeed * Time.deltaTime);

@@ -26,28 +26,28 @@ public class MutfakAlet : MonoBehaviour, IInteractable
 
     private void Start()
     {
-
+        // Null kontrolleri
+        if (Yemekpos == null)
+        {
+            Debug.LogError($"{gameObject.name}: Yemekpos transform atanmamış!");
+        }
+        
+        if (food1Phase1 == null || food1Phase2 == null || food1Phase3 == null)
+        {
+            Debug.LogError($"{gameObject.name}: Food1 phase prefab'ları eksik!");
+        }
+        
+        if (food2Phase1 == null || food2Phase2 == null || food2Phase3 == null)
+        {
+            Debug.LogError($"{gameObject.name}: Food2 phase prefab'ları eksik!");
+        }
     }
 
     public void Interact(PlayerInteraction player)
     {
-        Debug.LogWarning("MutfakAlet Interact");
-        if (isPrinting) return;
-        
-        if (player.IsHoldingItem() && CompareTag("Filament"))
+        if (!isPrinting && Input.GetKeyDown(KeyCode.E))
         {
-            GameObject heldItem = player.GetHeldItem();
-            
-            // Food tipini belirle
-            if (heldItem.name.Contains("Filament1"))
-                isFood1Selected = true;
-            else
-                isFood1Selected = false;
-            
-            // Eldeki itemi yok et (filament olarak kullanıldı)
-            player.TrashItem();
-            
-            // Printing işlemini başlat
+            isFood1Selected = !isFood1Selected;
             StartPrinting();
         }
     }
@@ -60,19 +60,11 @@ public class MutfakAlet : MonoBehaviour, IInteractable
 
     private void StartPrinting()
     {
-        if (isPrinting == true)
-        {
-            return;
-            
-        }
-            
-        else
-        {
-            isPrinting = true;
-            currentFood = isFood1Selected ? food1 : food2;
-            StartCoroutine(PrintingProcess());
-        }
+        if (isPrinting || Yemekpos == null) return;
         
+        isPrinting = true;
+        currentFood = isFood1Selected ? food1 : food2;
+        StartCoroutine(PrintingProcess());
     }
 
     private IEnumerator PrintingProcess()
@@ -83,6 +75,7 @@ public class MutfakAlet : MonoBehaviour, IInteractable
         GameObject phase1Prefab = isFood1Selected ? food1Phase1 : food2Phase1;
         if (phase1Prefab == null)
         {
+            Debug.LogError("Phase 1 prefab null!");
             isPrinting = false;
             yield break;
         }
@@ -96,6 +89,7 @@ public class MutfakAlet : MonoBehaviour, IInteractable
         GameObject phase2Prefab = isFood1Selected ? food1Phase2 : food2Phase2;
         if (phase2Prefab == null)
         {
+            Debug.LogError("Phase 2 prefab null!");
             isPrinting = false;
             yield break;
         }
@@ -109,6 +103,7 @@ public class MutfakAlet : MonoBehaviour, IInteractable
         GameObject phase3Prefab = isFood1Selected ? food1Phase3 : food2Phase3;
         if (phase3Prefab == null)
         {
+            Debug.LogError("Phase 3 prefab null!");
             isPrinting = false;
             yield break;
         }

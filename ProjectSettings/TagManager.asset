@@ -8,7 +8,6 @@ TagManager:
   - DropZone
   - Food
   - Interactable
-  - Filament
   layers:
   - Default
   - TransparentFX
