@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour
 {
@@ -7,6 +8,8 @@ public class AudioManager : MonoBehaviour
     public AudioClip menuMusic;
     public AudioClip gameMusic1;
     public AudioClip gameMusic2;
+
+    public Slider musicSlider;
 
     public bool inGame;
 
@@ -51,6 +54,11 @@ public class AudioManager : MonoBehaviour
         musicPlayer.loop = false;
         musicPlayer.clip = gameMusic1;
         musicPlayer.Play();
+    }
+
+    public void ChangeMusicVolume()
+    {
+        musicPlayer.volume = musicSlider.value;
     }
 
 }

@@ -80,6 +80,7 @@ public class UIManager : MonoBehaviour
     {
         CanvasGroup cg = GO.GetComponent<CanvasGroup>();
         cg.interactable = true;
+        cg.blocksRaycasts = true;
         float t = cg.alpha;
         while (t <= 1f)
         {
@@ -93,6 +94,7 @@ public class UIManager : MonoBehaviour
     {
         CanvasGroup cg = GO.GetComponent<CanvasGroup>();
         cg.interactable = false;
+        cg.blocksRaycasts = true;
         float t = cg.alpha;
         while (t >= 0f)
         {
