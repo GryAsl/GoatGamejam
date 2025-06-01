@@ -9,6 +9,7 @@ TagManager:
   - Food
   - Interactable
   - Filament
+  - Item
   layers:
   - Default
   - TransparentFX
@@ -21,7 +22,7 @@ TagManager:
   - Dish
   - Plate
   - Interactable
-  - 
+  - Item
   - 
   - 
   - 

@@ -19,6 +19,7 @@ public class Plate : MonoBehaviour
 
     public void AddFood(Food food)
     {
+
         Debug.Log($"AddFood called: food={food?.name}, foodsOnPlate.Count={foodsOnPlate.Count}");
         if (!CanAddFood(food)) {
             Debug.Log("AddFood: Cannot add, plate is full.");

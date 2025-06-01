@@ -82,34 +82,19 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: eadeb76d7927d664d84bf8a981448db6, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 309097158976108390}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: eadeb76d7927d664d84bf8a981448db6, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 4529109013785984966}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: eadeb76d7927d664d84bf8a981448db6, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3751046720101873949}
+      addedObject: {fileID: -5300058785014601904}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: eadeb76d7927d664d84bf8a981448db6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -3996755472480084984}
   m_SourcePrefab: {fileID: 100100000, guid: eadeb76d7927d664d84bf8a981448db6, type: 3}
 --- !u!1 &4471136168511394615 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: eadeb76d7927d664d84bf8a981448db6, type: 3}
   m_PrefabInstance: {fileID: 3660796984207928934}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &309097158976108390
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4471136168511394615}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e625392cbed0b5943945bb66edb3cab3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  foodData: {fileID: 11400000, guid: f9be206f90562ad428164bd541e728eb, type: 2}
-  plateOffset: {x: 0, y: 0.1, z: 0}
-  isOnPlate: 0
 --- !u!65 &4529109013785984966
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -131,7 +116,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.1574442, y: 0.01396489, z: 0.22476652}
   m_Center: {x: 0.0041383803, y: 0.0067418525, z: 0.024680749}
---- !u!114 &3751046720101873949
+--- !u!114 &-5300058785014601904
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,10 +125,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 4471136168511394615}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: daf76366319fe794492cc13fc7105f6d, type: 3}
+  m_Script: {fileID: 11500000, guid: e625392cbed0b5943945bb66edb3cab3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactText: Press [E] to interact
-  oneTimeUse: 0
-  isEnabled: 1
-  canBePickedUp: 1
+  foodData: {fileID: 11400000, guid: f9be206f90562ad428164bd541e728eb, type: 2}
+  plateOffset: {x: 0, y: 0.1, z: 0}
+  isOnPlate: 0
+--- !u!114 &-3996755472480084984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4471136168511394615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c7b9cedf148d3c46aeeec874774934e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemName: Meat

@@ -89,6 +89,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 685721916b5684e42a5c392fb68f85b1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 384299828233177687}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 685721916b5684e42a5c392fb68f85b1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -1399181923980189649}
   m_SourcePrefab: {fileID: 100100000, guid: 685721916b5684e42a5c392fb68f85b1, type: 3}
 --- !u!1 &6945026631098913413 stripped
 GameObject:
@@ -144,7 +147,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98a993e3536f1414bb431757b18f8b3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  foodsOnPlate: []
+  foodsOnPlate:
+  - {fileID: 0}
   foodPositions:
   - {x: 0, y: 0.02, z: -0.02}
   - {x: 0, y: 0, z: 0}
+--- !u!114 &-1399181923980189649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6945026631098913413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a57973561c801241a8c9237b10960e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  KitchenwareName: Plate
+  cooking: 0
+  alreadyCooked: 0
+  food: {fileID: 0}

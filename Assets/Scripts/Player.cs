@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.UIElements;
+using static UnityEditor.Progress;
 
 public class Player : MonoBehaviour
 {
@@ -8,10 +10,15 @@ public class Player : MonoBehaviour
 
     private CharacterController controller;
     private Vector3 movement;
-    private Animator animator;
+    public Animator animator;
     private bool isInteracting;
 
     GameManager gm;
+
+    public Transform itemTransform;
+    public InterectBox box;
+    public GameObject currentItem;
+    public GameObject currentKitchenware;
 
     void Start()
     {
@@ -23,7 +30,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (!gm.isGameOn) return;
+        //if (!gm.isGameOn) return;
 
         if (isInteracting) return;
 
@@ -38,7 +45,7 @@ public class Player : MonoBehaviour
         if (movement != Vector3.zero)
         {
             Quaternion toRotation = Quaternion.LookRotation(movement, Vector3.up);
-            transform.rotation = Quaternion.Lerp( transform.rotation, toRotation, Time.deltaTime * 10f);
+            transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, Time.deltaTime * 10f);
         }
 
         controller.Move(transform.forward * movement.magnitude * moveSpeed * Time.deltaTime);
@@ -49,13 +56,37 @@ public class Player : MonoBehaviour
 
     void Interact()
     {
-        Ray ray = new Ray(transform.position, transform.forward);
-        if (Physics.Raycast(ray, out RaycastHit hit, interactRange, interactableLayer))
+        currentKitchenware = box.Kitchenware;
+        if (currentItem == null && box.item != null)
         {
-            isInteracting = true;
-           
-            Debug.Log(hit.collider);
+            currentItem = box.item;
+            currentItem.transform.position = itemTransform.position;
+            currentItem.gameObject.transform.SetParent(gameObject.transform);
+            currentItem.gameObject.GetComponent<BoxCollider>().enabled = false;
         }
+        else if (currentKitchenware.GetComponent<MyKitchenware>().KitchenwareName == "Plate" && currentItem.GetComponent<MyItem>().itemName == "Meat")
+        {
+            currentKitchenware.GetComponent<MyKitchenware>().plate.AddFood(currentItem.GetComponent<Food>());
+        }
+        else if (currentKitchenware.GetComponent<MyKitchenware>().KitchenwareName == "3D" && currentKitchenware.GetComponent<MyKitchenware>().alreadyCooked)
+        {
+                currentKitchenware.GetComponent<MyKitchenware>().SpawnFood(itemTransform);
+        }
+        else
+        {
+            Debug.Log(currentKitchenware);
+            Debug.Log(currentItem);
+            if (currentKitchenware.GetComponent<MyKitchenware>().KitchenwareName == "3D" && currentItem.GetComponent<MyItem>().itemName == "Filement")
+            {
+                DestroyImmediate(currentItem);
+                currentItem = null;
+                box.item = null;
+                StartCoroutine(currentKitchenware.GetComponent<MyKitchenware>().StartCooking());
+            }
+
+        }
+
+
     }
 
     // Animation event callback
