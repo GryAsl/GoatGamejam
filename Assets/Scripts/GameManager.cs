@@ -63,4 +63,10 @@ public class GameManager : MonoBehaviour
         isGameOn = true;
 
     }
+
+    public void Level1Passed()
+    {
+        return;
+    }
+    
 }
