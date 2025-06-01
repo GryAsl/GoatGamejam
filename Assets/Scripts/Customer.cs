@@ -124,7 +124,7 @@ public class Customer : MonoBehaviour
                 {
                     gameManager.score += 1;
                     if (gameManager.score >= 5)
-                        gameManager.Level1Passed();
+                        GameObject.Find("GameManager").GetComponent<GameManager>().Level1Passed();
                 }
             }
             
@@ -151,8 +151,7 @@ public class Customer : MonoBehaviour
         {
             Debug.LogError("Door position is not set!");
         }
-
-        LeaveTable();
+        
         yield return null;
     }
     
@@ -186,24 +185,5 @@ public class Customer : MonoBehaviour
         targetPosition = targetPoint.transform.position;
         Debug.Log($"Setting destination to: {targetPosition}");
         agent.destination = targetPosition;
-    }
-    
-    // Masaya referansın varsa:
-    public void LeaveTable()
-    {
-        if (table != null)
-        {
-            // Masa üzerinden CustomerManager'ın PointData'sını bul
-            CustomerManager manager = FindObjectOfType<CustomerManager>();
-            foreach (var pd in manager.pointData)
-            {
-                if (pd.table == table)
-                {
-                    pd.isEmpty = true;
-                    break;
-                }
-            }
-        }
-        
     }
 }

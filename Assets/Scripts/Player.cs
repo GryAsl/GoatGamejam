@@ -130,14 +130,14 @@ public class Player : MonoBehaviour
             StartCoroutine(currentKitchenware.GetComponent<MyKitchenware>().StartCooking(currentKitchenware.GetComponent<MyKitchenware>().food3));
             return;
         }
-        // else if (currentKitchenware.GetComponent<MyKitchenware>().KitchenwareName == "Oven" && currentItem.GetComponent<MyItem>().itemName == "Meat")
-        // {
-        //     DestroyImmediate(currentItem);
-        //     currentItem = null;
-        //     box.item = null;
-        //     StartCoroutine(currentKitchenware.GetComponent<MyKitchenware>().StartCooking(currentKitchenware.GetComponent<MyKitchenware>().food3));
-        //     return;
-        // }
+        else if (currentKitchenware.GetComponent<MyKitchenware>().KitchenwareName == "Oven" && currentItem.GetComponent<MyItem>().itemName == "Meat")
+        {
+            DestroyImmediate(currentItem);
+            currentItem = null;
+            box.item = null;
+            StartCoroutine(currentKitchenware.GetComponent<MyKitchenware>().StartCooking(currentKitchenware.GetComponent<MyKitchenware>().food3));
+            return;
+        }
         else
         {
             Debug.LogWarning("4");

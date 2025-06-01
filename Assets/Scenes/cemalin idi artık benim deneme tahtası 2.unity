@@ -665,12 +665,8 @@ MonoBehaviour:
   food1: {fileID: 0}
   food2: {fileID: 0}
   food3: {fileID: 0}
-  food4: {fileID: 0}
   currentFood: {fileID: 0}
-  cookedMeat: {fileID: 0}
-  burnedMeat: {fileID: 0}
-  meatPoint: {fileID: 0}
-  burnedMeatSpawned: 0
+  plate: {fileID: 0}
 --- !u!1 &53558924
 GameObject:
   m_ObjectHideFlags: 0
@@ -1710,37 +1706,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 120300174}
   m_Mesh: {fileID: 4781277628412113339, guid: 8a1afca7b12c6a74bb41d9da72574ff3, type: 3}
---- !u!1 &175049497
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 175049498}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &175049498
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 175049497}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 1.83}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2112681282}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &177986650
 GameObject:
   m_ObjectHideFlags: 0
@@ -8404,11 +8369,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 377c10c807662e946a012efae9aa5985, type: 3}
   m_PrefabInstance: {fileID: 848289115}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &850879075 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 377c10c807662e946a012efae9aa5985, type: 3}
-  m_PrefabInstance: {fileID: 2112681281}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &852251598
 GameObject:
   m_ObjectHideFlags: 0
@@ -8761,9 +8721,6 @@ MonoBehaviour:
   pointData:
   - point: {fileID: 1458145166}
     table: {fileID: 1556544848}
-    isEmpty: 1
-  - point: {fileID: 175049497}
-    table: {fileID: 2112681285}
     isEmpty: 1
   isAllTablesAreFull: 0
   gameEndTimer: 0
@@ -9766,8 +9723,6 @@ MonoBehaviour:
   box: {fileID: 1509741063}
   currentItem: {fileID: 0}
   currentKitchenware: {fileID: 0}
-  red: {fileID: 0}
-  yellow: {fileID: 0}
 --- !u!4 &980718685 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f8c5d2c3ac5b37d42bdd3afd06d7e7c4, type: 3}
@@ -12083,18 +12038,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   snappedPos: {x: 0, y: 0, z: 0}
-  red: 1
-  yellow: 1
-  oven: 1
-  counter: 1
-  printer: 2
-  trash: 1
-  cgRed: {fileID: 0}
-  cgYellow: {fileID: 0}
-  cgOven: {fileID: 0}
-  cgCounter: {fileID: 0}
-  cgPrinter: {fileID: 0}
-  cgTrash: {fileID: 0}
   tezgahTypeShi: 0
 --- !u!114 &1216548253
 MonoBehaviour:
@@ -21033,35 +20976,13 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 377c10c807662e946a012efae9aa5985, type: 3}
       insertIndex: -1
       addedObject: {fileID: 359699361}
-    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 377c10c807662e946a012efae9aa5985, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 175049498}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 377c10c807662e946a012efae9aa5985, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2112681285}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 377c10c807662e946a012efae9aa5985, type: 3}
 --- !u!4 &2112681282 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 377c10c807662e946a012efae9aa5985, type: 3}
   m_PrefabInstance: {fileID: 2112681281}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2112681285
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 850879075}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32a4e0cef872d5e4d8509afb01857f1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  platePoint: {fileID: 0}
-  requestedFood: {fileID: 0}
-  needsPlate: 0
-  dirtyPlatePrefab: {fileID: 0}
 --- !u!1 &2123181530
 GameObject:
   m_ObjectHideFlags: 0

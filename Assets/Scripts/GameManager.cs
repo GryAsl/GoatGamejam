@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour
         if (!isBuildingDone)
         {
             isBuildingDone = true;
-            customerMan.StartSpawning();
+            //customerMan.StartSpawning();
             StartCoroutine(uiMan.NewPopUP(uiMan.popUP1));
             StartCoroutine(uiMan.NewPopUP(uiMan.popUP2));
         }
