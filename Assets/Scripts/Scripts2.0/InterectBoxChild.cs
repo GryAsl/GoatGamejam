@@ -25,14 +25,13 @@ public class InterectBoxChild : MonoBehaviour
         switch (type)
         {
             case  0:
-                Debug.Log(other);
+                
                 intBox.item = other.gameObject;
                 break;
             case 1:
 
                 if (other.CompareTag("Interactable"))
                 {
-                    Debug.Log(other);
                     intBox.Kitchenware = other.gameObject;
                     break;
                 }
