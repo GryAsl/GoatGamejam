@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   foodName: Cooked Meat
   Ingredients: Raw Meat
-  maxTime: 6
+  maxTime: 50

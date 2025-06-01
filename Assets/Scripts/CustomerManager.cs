@@ -16,6 +16,11 @@ public class CustomerManager : MonoBehaviour
 
     void Start()
     {
+
+    }
+
+    public void StartSpawning()
+    {
         // Start spawning customers
         spawnCoroutine = StartCoroutine(SpawnCustomerRoutine());
     }
@@ -71,10 +76,18 @@ public class CustomerManager : MonoBehaviour
         
         //buraya level1den sonra tekrar açılma getirmemiz lazım.
         int i;
-        do
+        if (GameObject.Find("GameManager").GetComponent<GameManager>().isLevelUP)
         {
             i = Random.Range(0, foodList.Length);
-        } while (i == 0);
+        }
+        else
+        {
+            do
+            {
+                i = Random.Range(0, foodList.Length);
+            } while (i == 0);
+        }
+
 
         if (currentPointData.isEmpty)
         {

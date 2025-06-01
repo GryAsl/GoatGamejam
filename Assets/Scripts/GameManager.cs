@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class GameManager : MonoBehaviour
     public bool isGameOn;
     public Camera mainCam;
     public Builder builder;
+    public CustomerManager customerMan;
+
+    public bool isLevelUP;
     
     [Header("Game Score")]
     public int score = 0;  // This will be visible in the inspector
@@ -58,21 +62,40 @@ public class GameManager : MonoBehaviour
     {
         mainCam.enabled = false;
         StartCoroutine(cutSceneManager.CutScene1());
-        ChangeState(GameState.normal);
         audioManager.ChangeMusicToInGame();
         StartCoroutine(uiMan.TurnOffPanel(uiMan.mainMenu));
-        isGameOn = true;
 
+    }
+
+    public void CutsceneDone()
+    {
+        mainCam.enabled = true;
+        customerMan.StartSpawning();
+        isGameOn = true;
+        ChangeState(GameState.normal);
+        StartCoroutine(uiMan.NewPopUP(uiMan.popUP1));
     }
 
     public void Level1Passed()
     {
         builder.ovenNormalValue = 1;
+        isLevelUP = true;
     }
 
     public void ExitGame()
     {
         Application.Quit();
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().ToString());
+    }
+
+    public void ENDGAME()
+    {
+        StartCoroutine(uiMan.TurnOnPanel(uiMan.endMenu));
+        isGameOn = false;
     }
 
 }

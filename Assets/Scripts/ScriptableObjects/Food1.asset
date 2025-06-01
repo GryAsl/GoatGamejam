@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   foodName: Raw Meat
   Ingredients: "K\u0131rm\u0131\u0131 filament"
-  maxTime: 6
+  maxTime: 50

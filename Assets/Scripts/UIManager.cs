@@ -15,6 +15,10 @@ public class UIManager : MonoBehaviour
 
     public GameObject buildingPanel;
     public GameObject mainMenu;
+    public GameObject endMenu;
+
+    [Header("PopUP")]
+    public GameObject popUP1;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -112,6 +116,38 @@ public class UIManager : MonoBehaviour
     public void StartToTurnOffPanel(GameObject GO)
     {
         StartCoroutine(TurnOffPanel(GO));
+    }
+
+    public IEnumerator NewPopUP(GameObject GO)
+    {
+        CanvasGroup cg = GO.GetComponent<CanvasGroup>();
+        cg.interactable = true;
+        cg.blocksRaycasts = true;
+        float t = cg.alpha;
+        while (t <= 1f)
+        {
+            t += Time.deltaTime * UIspeedMultiplier;
+            cg.alpha = t;
+            yield return null;
+        }
+
+        yield return new WaitForSecondsRealtime(3f);
+
+        cg.interactable = false;
+        cg.blocksRaycasts = true;
+        t = cg.alpha;
+        while (t >= 0f)
+        {
+            t -= Time.deltaTime * UIspeedMultiplier;
+            cg.alpha = t;
+            yield return null;
+        }
+    }
+
+    public void ENDGAMEUI()
+    {
+        
+
     }
 
 

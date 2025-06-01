@@ -5,7 +5,6 @@ public class OrderStatus : MonoBehaviour
 {
     public bool on;
     public float currentTimer;
-    public float maxTime;
     public Foods food;
 
     public TextMeshProUGUI nameText;
@@ -27,7 +26,10 @@ public class OrderStatus : MonoBehaviour
         {
             currentTimer += Time.deltaTime;
             timerText.text = "Timer: " + currentTimer.ToString("F1");
-
+            if(currentTimer >= food.maxTime)
+            {
+                GameObject.Find("GameManager").GetComponent<GameManager>().ENDGAME();
+            }
             if(currentTimer >= food.maxTime * .5f && currentTimer < food.maxTime){
                 timerText.color = Color.Lerp(startColor, Color.red, (currentTimer / (food.maxTime / 2f)) - 1);
                 Debug.Log((currentTimer / (food.maxTime / 2f)) - 1);

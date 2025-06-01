@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -16,7 +17,10 @@ public class Customer : MonoBehaviour
     private bool isEating = false;
     private bool isLeaving = false;
     private float eatingCountdown = 5f;
-    
+
+    GameManager gameManager;
+
+
     void Start()
     {
         // If doorPosition is not assigned in the inspector, find it by tag
@@ -40,7 +44,10 @@ public class Customer : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         uiMan = GameObject.Find("GameManager").GetComponent<UIManager>();
         Debug.Log("Customer Awake - Agent and UIManager initialized");
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
+
+    
 
     void Update()
     {
@@ -69,13 +76,13 @@ public class Customer : MonoBehaviour
         }
         
         float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
-        Debug.Log($"Customer Update - Distance to target: {distanceToTarget}, Stopping distance: {agent.stoppingDistance}");
+        //Debug.Log($"Customer Update - Distance to target: {distanceToTarget}, Stopping distance: {agent.stoppingDistance}");
         float speed = agent.velocity.magnitude;   
         animator.SetFloat("Speed", speed); 
 
-        if (distanceToTarget <= 1f && !isEating && !isLeaving)
+        if (distanceToTarget <= 2f && !isEating && !isLeaving)
         {
-            Debug.Log("Customer reached destination point");
+            //Debug.Log("Customer reached destination point");
             animator.SetFloat("Speed", 0f);
             agent.isStopped = true;
             agent.ResetPath();
@@ -86,7 +93,7 @@ public class Customer : MonoBehaviour
     // Called when a plate is delivered to the table
     public void OnPlateDelivered(Plate plate)
     {
-        Debug.Log("Plate delivered to customer. Starting eating countdown.");
+        //Debug.Log("Plate delivered to customer. Starting eating countdown.");
         isEating = true;
         eatingCountdown = 5f;
         
@@ -113,12 +120,11 @@ public class Customer : MonoBehaviour
                 dirtyPlate.transform.SetParent(currentTable.transform);
                 
                 // Increment score
-                GameManager gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
                 if (gameManager != null)
                 {
                     gameManager.score += 1;
-                    // if (gameManager.score >= 5)
-                    //     Level1Passed();
+                    if (gameManager.score >= 5)
+                        gameManager.Level1Passed();
                 }
             }
             
