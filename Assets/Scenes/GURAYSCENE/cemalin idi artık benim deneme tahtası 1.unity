@@ -2891,7 +2891,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.15333334
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 71b16b643d31b1e4994bb462833c44dd, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 1b648186a7738e84da852757b84de149, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &447850564 stripped
 Transform:
@@ -4673,13 +4673,13 @@ MonoBehaviour:
   agent: {fileID: 594310151}
   plateHoldPosition: {fileID: 1084423343}
   counters:
-  - {fileID: 0}
+  - {fileID: 2123181531}
   counterCheckRadius: 1.5
   plateLayer:
     serializedVersion: 2
     m_Bits: 512
   tables:
-  - {fileID: 0}
+  - {fileID: 1240338513}
   startPosition: {fileID: 0}
   maxIdleTime: 2
 --- !u!1 &600010918
@@ -9513,6 +9513,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: "D\u0131\u015F kap\u0131"
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 628a51e7084442442ac43b430d9473be, type: 3}
+      propertyPath: m_TagString
+      value: Door
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12678,29 +12682,8 @@ MonoBehaviour:
   - {fileID: 306443129059892543, guid: 46579dc16eeac954199899a052ceabbc, type: 3}
   - {fileID: 633223834043130459, guid: f8987126c24638d4581ff90b6e272432, type: 3}
   pointData:
-  - point: {fileID: 0}
-    table: {fileID: 0}
-    isEmpty: 1
-  - point: {fileID: 0}
-    table: {fileID: 0}
-    isEmpty: 1
-  - point: {fileID: 0}
-    table: {fileID: 0}
-    isEmpty: 1
-  - point: {fileID: 0}
-    table: {fileID: 0}
-    isEmpty: 1
-  - point: {fileID: 0}
-    table: {fileID: 0}
-    isEmpty: 1
-  - point: {fileID: 0}
-    table: {fileID: 0}
-    isEmpty: 1
-  - point: {fileID: 0}
-    table: {fileID: 0}
-    isEmpty: 1
-  - point: {fileID: 0}
-    table: {fileID: 0}
+  - point: {fileID: 1866726060}
+    table: {fileID: 1240338513}
     isEmpty: 1
   isAllTablesAreFull: 0
   gameEndTimer: 0
