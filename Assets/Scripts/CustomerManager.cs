@@ -61,11 +61,20 @@ public class CustomerManager : MonoBehaviour
     public void NewCustomer()
     {
         PointData currentPointData = pointData[Random.Range(0, pointData.Length)];
-        int i = Random.Range(0, foodList.Length);
+
+        
 
         int Customers = Random.Range(0, customerPrefabs.Length);
         Customer customer = Instantiate(customerPrefabs[Customers]).GetComponent<Customer>();
         NavMeshAgent agent = customer.GetComponent<NavMeshAgent>();
+        
+        
+        //buraya level1den sonra tekrar açılma getirmemiz lazım.
+        int i;
+        do
+        {
+            i = Random.Range(0, foodList.Length);
+        } while (i == 0);
 
         if (currentPointData.isEmpty)
         {

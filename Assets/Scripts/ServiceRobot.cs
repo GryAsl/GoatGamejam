@@ -190,7 +190,7 @@ public class ServiceRobot : MonoBehaviour
     {
         foreach (TableController table in tables)
         {
-            if (table.NeedsPlate())
+                if (table.NeedsPlate())
             {
                 Debug.Log($"Found table needing plate: {table.name}");
                 return table;
