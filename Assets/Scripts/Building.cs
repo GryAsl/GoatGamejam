@@ -14,6 +14,8 @@ public class Building : MonoBehaviour
     public Vector3 lastSnappedPos;
     public LayerMask layer;
 
+    public int buildingIndex;
+
 
     void Start()
     {
@@ -111,3 +113,5 @@ public class Building : MonoBehaviour
 
     }
 }
+
+

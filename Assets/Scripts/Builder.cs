@@ -20,6 +20,21 @@ public class Builder : MonoBehaviour
     public LayerMask buildToDestroyLayers;
     public Vector3 snappedPos;
 
+
+    public int red = 1;
+    public int yellow = 1;
+    public int oven = 1;
+    public int counter = 1;
+    public int printer = 2;
+    public int trash = 1;
+    public CanvasGroup cgRed;
+    public CanvasGroup cgYellow;
+    public CanvasGroup cgOven;
+    public CanvasGroup cgCounter;
+    public CanvasGroup cgPrinter;
+    public CanvasGroup cgTrash;
+
+
     public bool tezgahTypeShi;
 
     private GameManager gm;
@@ -33,11 +48,120 @@ public class Builder : MonoBehaviour
 
     void Update()
     {
+
         if (!ghost)
             return;
         if (gm.gameState != GameManager.GameState.building)
             return;
-        bool stop = false;
+        red = 1;
+        yellow = 1;
+        oven = 1;
+        counter = 1;
+        printer = 2;
+        trash = 1;
+        List<GameObject> tempList = new List<GameObject>(builded);
+
+        foreach (GameObject go in tempList)
+        {
+            if (go == null)
+                continue;
+            switch (go.GetComponent<Building>().buildingIndex)
+            {
+                case 0:
+                    red = 0;
+                    break;
+                case 1:
+                    yellow = 0;
+                    break;
+                case 2:
+                    oven = 0;
+                    break;
+                case 3:
+                    counter -= 1;
+                    break;
+                case 4:
+                    printer -= 1;
+                    break;
+                case 5:
+                    trash -= 1;
+                    break;
+                default:
+                    break;
+            }
+        }
+        if(red == 0)
+        {
+            cgRed.alpha = .5f;
+            cgRed.interactable = false;
+            cgRed.blocksRaycasts = false;
+        }
+        else
+        {
+            cgRed.alpha = 1f;
+            cgRed.interactable = true;
+            cgRed.blocksRaycasts = true;
+        }
+        if (yellow == 0)
+        {
+            cgYellow.alpha = .5f;
+            cgYellow.interactable = false;
+            cgYellow.blocksRaycasts = false;
+        }
+        else
+        {
+            cgYellow.alpha = 1f;
+            cgYellow.interactable = true;
+            cgYellow.blocksRaycasts = true;
+        }
+        if (oven == 0)
+        {
+            cgOven.alpha = .5f;
+            cgOven.interactable = false;
+            cgOven.blocksRaycasts = false;
+        }
+        else
+        {
+            cgOven.alpha = 1f;
+            cgOven.interactable = true;
+            cgOven.blocksRaycasts = true;
+        }
+        if (counter == 0)
+        {
+            cgCounter.alpha = .5f;
+            cgCounter.interactable = false;
+            cgCounter.blocksRaycasts = false;
+        }
+        else
+        {
+            cgCounter.alpha = 1f;
+            cgCounter.interactable = true;
+            cgCounter.blocksRaycasts = true;
+        }
+        if (printer == 0)
+        {
+            cgPrinter.alpha = .5f;
+            cgPrinter.interactable = false;
+            cgPrinter.blocksRaycasts = false;
+        }
+        else
+        {
+            cgPrinter.alpha = 1f;
+            cgPrinter.interactable = true;
+            cgPrinter.blocksRaycasts = true;
+        }
+        if (trash == 0)
+        {
+            cgTrash.alpha = .5f;
+            cgTrash.interactable = false;
+            cgTrash.blocksRaycasts = false;
+        }
+        else
+        {
+            cgTrash.alpha = 1f;
+            cgTrash.interactable = true;
+            cgTrash.blocksRaycasts = true;
+        }
+            bool stop = false;
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit, 100f, buildBlockerLayers))
@@ -80,7 +204,7 @@ public class Builder : MonoBehaviour
             if (ghost.GetComponent<Building>().buildingName == "trash")
             {
                 Debug.LogError("333");
-                Destroy(ghost.GetComponent<Building>().currentCollisionGO);
+                DestroyImmediate(ghost.GetComponent<Building>().currentCollisionGO);
             }
             else if (!ghost.GetComponent<Building>().currentCollision)
             {
@@ -114,3 +238,5 @@ public class Builder : MonoBehaviour
         return new Vector3(x, y, z);
     }
 }
+
+

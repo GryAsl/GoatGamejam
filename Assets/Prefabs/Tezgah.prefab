@@ -170,6 +170,7 @@ MonoBehaviour:
   layer:
     serializedVersion: 2
     m_Bits: 64
+  buildingIndex: 3
 --- !u!65 &147401910418230440
 BoxCollider:
   m_ObjectHideFlags: 0
