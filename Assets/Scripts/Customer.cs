@@ -117,6 +117,8 @@ public class Customer : MonoBehaviour
                 if (gameManager != null)
                 {
                     gameManager.score += 1;
+                    if (gameManager.score >= 15)
+                        
                 }
             }
             
