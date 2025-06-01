@@ -31,6 +31,16 @@ public class TableController : MonoBehaviour
         return needsPlate;
     }
     
+    // Reference to the customer associated with this table
+    private Customer associatedCustomer;
+    public GameObject dirtyPlatePrefab;
+    
+    // Set the customer associated with this table
+    public void SetCustomer(Customer customer)
+    {
+        associatedCustomer = customer;
+    }
+    
     // Tabak geldiğinde çağrılacak
     public void PlateDelivered(Foods food)
     {
@@ -40,8 +50,11 @@ public class TableController : MonoBehaviour
             needsPlate = false;
             Debug.Log($"Table {name} received requested food: {food.foodName}");
             
-            // Burada müşteri için diğer mantığı ekleyebilirsiniz
-            // Örneğin: yemeği sunma, müşterinin yemeği yemesi, vb.
+            // Notify the customer that the plate has been delivered
+            if (associatedCustomer != null)
+            {
+                associatedCustomer.OnPlateDelivered(GetComponentInChildren<Plate>());
+            }
         }
         else
         {

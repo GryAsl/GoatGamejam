@@ -10,6 +10,8 @@ TagManager:
   - Interactable
   - Filament
   - Item
+  - Door
+  - Dishes
   layers:
   - Default
   - TransparentFX

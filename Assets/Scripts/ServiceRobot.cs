@@ -201,25 +201,25 @@ public class ServiceRobot : MonoBehaviour
 
     private GameObject FindPlateAtCounter(Transform counter, Foods food)
     {
-        Debug.Log($"Searching for plate with food {food.foodName} at counter {counter.name}");
+        Debug.Log($"Searching for plate with food {food?.foodName ?? "null"} at counter {counter.name}");
         Collider[] colliders = Physics.OverlapSphere(counter.position, counterCheckRadius);
-        
+
         foreach (Collider col in colliders)
         {
-            Debug.LogWarning("1");
             if (col.CompareTag("Plate"))
             {
                 Plate plate = col.GetComponent<Plate>();
-            Debug.LogWarning("2");
-                if (plate != null && plate.foodsOnPlate.Exists(f => f.foodData == food))
+
+                // Null check!
+                if (plate != null && plate.foodsOnPlate != null && food != null &&
+                    plate.foodsOnPlate.Exists(f => f != null && f.foodData != null && f.foodData == food))
                 {
-            Debug.LogWarning("3");
                     Debug.Log($"Found matching plate at counter {counter.name}");
                     return col.gameObject;
                 }
             }
         }
-        
+
         Debug.LogWarning($"No matching plate found at counter {counter.name}");
         return null;
     }

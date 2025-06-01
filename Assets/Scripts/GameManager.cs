@@ -7,6 +7,9 @@ public class GameManager : MonoBehaviour
     public CutSceneManager cutSceneManager;
     public bool isGameOn;
     public Camera mainCam;
+    
+    [Header("Game Score")]
+    public int score = 0;  // This will be visible in the inspector
 
     public enum GameState
     {
