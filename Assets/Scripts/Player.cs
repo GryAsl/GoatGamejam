@@ -60,27 +60,7 @@ public class Player : MonoBehaviour
     {
         currentKitchenware = box.Kitchenware;
         Debug.LogWarning("currentKitchenware: " + currentKitchenware);
-        if (currentItem != null &&  currentKitchenware.GetComponent<MyKitchenware>().KitchenwareName == "Trash")
-        {
-            Debug.LogWarning("Trash");
-            DestroyImmediate(currentItem);
-            currentItem = null;
-        }
-        else if (currentItem == null && box.item == null && currentKitchenware.GetComponent<MyKitchenware>().KitchenwareName == "Yellow")
-        {
-            Debug.LogWarning("Yellow");
-            currentItem = Instantiate(yellow);
-            currentItem.transform.position = itemTransform.position;
-            currentItem.gameObject.transform.SetParent(itemTransform.transform);
-        }
-        else if (currentItem == null && box.item == null && currentKitchenware.GetComponent<MyKitchenware>().KitchenwareName == "Red")
-        {
-            Debug.LogWarning("Red");
-            currentItem = Instantiate(red);
-            currentItem.transform.position = itemTransform.position;
-            currentItem.gameObject.transform.SetParent(itemTransform.transform);
-        }
-        else if (currentItem == null && box.item != null)
+         if (currentItem == null && box.item != null)
         {
             Debug.LogWarning("NULL");
             currentItem = box.item;
@@ -101,6 +81,28 @@ public class Player : MonoBehaviour
         {
             box.Plate.GetComponent<Plate>().AddFood(currentItem.GetComponent<Food>());
         }
+
+        if (currentItem != null && currentKitchenware.GetComponent<MyKitchenware>().KitchenwareName == "Trash")
+        {
+            Debug.LogWarning("Trash");
+            DestroyImmediate(currentItem);
+            currentItem = null;
+        }
+        else if (currentItem == null && box.item == null && currentKitchenware.GetComponent<MyKitchenware>().KitchenwareName == "Yellow")
+        {
+            Debug.LogWarning("Yellow");
+            currentItem = Instantiate(yellow);
+            currentItem.transform.position = itemTransform.position;
+            currentItem.gameObject.transform.SetParent(itemTransform.transform);
+        }
+        else if (currentItem == null && box.item == null && currentKitchenware.GetComponent<MyKitchenware>().KitchenwareName == "Red")
+        {
+            Debug.LogWarning("Red");
+            currentItem = Instantiate(red);
+            currentItem.transform.position = itemTransform.position;
+            currentItem.gameObject.transform.SetParent(itemTransform.transform);
+        }
+        
         else if (currentKitchenware.GetComponent<MyKitchenware>().KitchenwareName == "3D" && currentKitchenware.GetComponent<MyKitchenware>().alreadyCooked)
         {
             Debug.LogWarning("1");

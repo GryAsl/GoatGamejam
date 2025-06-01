@@ -55,7 +55,7 @@ public class CustomerManager : MonoBehaviour
                 }
                 else isAllTablesAreFull = true;
             }
-            Debug.LogError(isAllTablesAreFull);
+
             if (!isAllTablesAreFull)
             {
                 NewCustomer();

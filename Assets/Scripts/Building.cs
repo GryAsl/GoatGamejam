@@ -41,7 +41,6 @@ public class Building : MonoBehaviour
             ReplaceAllMaterials(redMaterial);
         if(buildingName == "3D" && !isGhost)
         {
-                Debug.Log("hit.collider");
             Ray ray = new Ray(transform.position, -transform.up);
             if (!Physics.Raycast(ray, out RaycastHit hit, 1f, layer))
             {
