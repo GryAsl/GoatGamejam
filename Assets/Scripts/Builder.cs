@@ -23,7 +23,8 @@ public class Builder : MonoBehaviour
 
     public int red = 1;
     public int yellow = 1;
-    public int oven = 1;
+    public int oven = 0;
+    public int ovenNormalValue = 0;
     public int counter = 2;
     public int printer = 2;
     public int trash = 1;
@@ -49,47 +50,16 @@ public class Builder : MonoBehaviour
     void Update()
     {
 
-        if (!ghost)
-            return;
+
         if (gm.gameState != GameManager.GameState.building)
             return;
         red = 1;
         yellow = 1;
-        oven = 1;
+        oven = ovenNormalValue;
         counter = 1;
         printer = 2;
         trash = 1;
-        List<GameObject> tempList = new List<GameObject>(builded);
-
-        foreach (GameObject go in tempList)
-        {
-            if (go == null)
-                continue;
-            switch (go.GetComponent<Building>().buildingIndex)
-            {
-                case 0:
-                    red = 0;
-                    break;
-                case 1:
-                    yellow = 0;
-                    break;
-                case 2:
-                    oven = 0;
-                    break;
-                case 3:
-                    counter -= 1;
-                    break;
-                case 4:
-                    printer -= 1;
-                    break;
-                case 5:
-                    trash -= 1;
-                    break;
-                default:
-                    break;
-            }
-        }
-        if(red == 0)
+        if (red == 0)
         {
             cgRed.alpha = .5f;
             cgRed.interactable = false;
@@ -161,6 +131,42 @@ public class Builder : MonoBehaviour
             cgTrash.interactable = true;
             cgTrash.blocksRaycasts = true;
         }
+        Debug.LogWarning("anan");
+
+        if (!ghost)
+            return;
+
+        List<GameObject> tempList = new List<GameObject>(builded);
+
+        foreach (GameObject go in tempList)
+        {
+            if (go == null)
+                continue;
+            switch (go.GetComponent<Building>().buildingIndex)
+            {
+                case 0:
+                    red = 0;
+                    break;
+                case 1:
+                    yellow = 0;
+                    break;
+                case 2:
+                    oven = 0;
+                    break;
+                case 3:
+                    counter -= 1;
+                    break;
+                case 4:
+                    printer -= 1;
+                    break;
+                case 5:
+                    trash -= 1;
+                    break;
+                default:
+                    break;
+            }
+        }
+
             bool stop = false;
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

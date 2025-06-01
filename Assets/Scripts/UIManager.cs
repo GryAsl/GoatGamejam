@@ -104,7 +104,15 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void StartToTurnOnPanel(GameObject GO)
+    {
+        StartCoroutine(TurnOnPanel(GO));
+    }
 
+    public void StartToTurnOffPanel(GameObject GO)
+    {
+        StartCoroutine(TurnOffPanel(GO));
+    }
 
 
 }

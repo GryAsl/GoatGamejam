@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public CutSceneManager cutSceneManager;
     public bool isGameOn;
     public Camera mainCam;
+    public Builder builder;
     
     [Header("Game Score")]
     public int score = 0;  // This will be visible in the inspector
@@ -55,8 +56,8 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        //mainCam.enabled = false;
-        //StartCoroutine(cutSceneManager.CutScene1());
+        mainCam.enabled = false;
+        StartCoroutine(cutSceneManager.CutScene1());
         ChangeState(GameState.normal);
         audioManager.ChangeMusicToInGame();
         StartCoroutine(uiMan.TurnOffPanel(uiMan.mainMenu));
@@ -66,7 +67,12 @@ public class GameManager : MonoBehaviour
 
     public void Level1Passed()
     {
-        return;
+        builder.ovenNormalValue = 1;
     }
-    
+
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
+
 }

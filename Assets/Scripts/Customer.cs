@@ -117,8 +117,8 @@ public class Customer : MonoBehaviour
                 if (gameManager != null)
                 {
                     gameManager.score += 1;
-                    //if (gameManager.score >= 5)
-                    //    //Level1Passed();
+                    if (gameManager.score >= 5)
+                        GameObject.Find("GameManager").GetComponent<GameManager>().Level1Passed();
                 }
             }
             
