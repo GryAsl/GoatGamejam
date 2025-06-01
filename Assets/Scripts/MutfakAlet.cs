@@ -34,10 +34,9 @@ public class MutfakAlet : MonoBehaviour, IInteractable
         Debug.LogWarning("MutfakAlet Interact");
         if (isPrinting) return;
         
-        if (player.IsHoldingItem() && CompareTag("Filament"))
+        if (player.IsHoldingItem())
         {
             GameObject heldItem = player.GetHeldItem();
-            
             // Food tipini belirle
             if (heldItem.name.Contains("Filament1"))
                 isFood1Selected = true;
