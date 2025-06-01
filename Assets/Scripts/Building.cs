@@ -59,7 +59,7 @@ public class Building : MonoBehaviour
         if (building)
         {
             currentCollisionGO = other.gameObject;
-            if (building.buildingName == "tezgah" && buildingName == "3d")
+            if (building.buildingName == "tezgah" && buildingName == "3D")
             {
                 Debug.Log("2");
                 builder.tezgahTypeShi = true;

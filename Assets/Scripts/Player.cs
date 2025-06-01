@@ -61,27 +61,41 @@ public class Player : MonoBehaviour
         {
             currentItem = box.item;
             currentItem.transform.position = itemTransform.position;
-            currentItem.gameObject.transform.SetParent(gameObject.transform);
-            currentItem.gameObject.GetComponent<BoxCollider>().enabled = false;
+            currentItem.gameObject.transform.SetParent(itemTransform.transform);
         }
-        else if (currentKitchenware.GetComponent<MyKitchenware>().KitchenwareName == "Plate" && currentItem.GetComponent<MyItem>().itemName == "Meat")
+        else if (box.Plate != null && currentItem.GetComponent<MyItem>().itemName == "Meat")
         {
-            currentKitchenware.GetComponent<MyKitchenware>().plate.AddFood(currentItem.GetComponent<Food>());
+            box.Plate.GetComponent<Plate>().AddFood(currentItem.GetComponent<Food>());
+        }
+        else if (box.Plate != null && currentItem.GetComponent<MyItem>().itemName == "Pat")
+        {
+            box.Plate.GetComponent<Plate>().AddFood(currentItem.GetComponent<Food>());
         }
         else if (currentKitchenware.GetComponent<MyKitchenware>().KitchenwareName == "3D" && currentKitchenware.GetComponent<MyKitchenware>().alreadyCooked)
         {
-                currentKitchenware.GetComponent<MyKitchenware>().SpawnFood(itemTransform);
+            Debug.Log("AHHHHH");
+                currentItem = currentKitchenware.GetComponent<MyKitchenware>().SpawnFood(itemTransform);
+            currentKitchenware.GetComponent<MyKitchenware>().alreadyCooked = false;
         }
         else
         {
             Debug.Log(currentKitchenware);
             Debug.Log(currentItem);
-            if (currentKitchenware.GetComponent<MyKitchenware>().KitchenwareName == "3D" && currentItem.GetComponent<MyItem>().itemName == "Filement")
+            if (currentKitchenware.GetComponent<MyKitchenware>().KitchenwareName == "3D" && currentItem.GetComponent<MyItem>().itemName == "FilementEt")
             {
                 DestroyImmediate(currentItem);
                 currentItem = null;
                 box.item = null;
-                StartCoroutine(currentKitchenware.GetComponent<MyKitchenware>().StartCooking());
+                StartCoroutine(currentKitchenware.GetComponent<MyKitchenware>().StartCooking(currentKitchenware.GetComponent<MyKitchenware>().food1));
+                return;
+            }
+            if (currentKitchenware.GetComponent<MyKitchenware>().KitchenwareName == "3D" && currentItem.GetComponent<MyItem>().itemName == "FilementPat")
+            {
+                DestroyImmediate(currentItem);
+                currentItem = null;
+                box.item = null;
+                StartCoroutine(currentKitchenware.GetComponent<MyKitchenware>().StartCooking(currentKitchenware.GetComponent<MyKitchenware>().food2));
+                return;
             }
 
         }

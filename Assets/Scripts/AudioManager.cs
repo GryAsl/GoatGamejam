@@ -29,13 +29,11 @@ public class AudioManager : MonoBehaviour
             {
                 if(musicPlayer.clip.name == gameMusic1.name)
                 {
-                    musicPlayer.clip = gameMusic2;
-                    musicPlayer.Play();
+                    ChangeMusic(gameMusic2);
                 }
                 else
                 {
-                    musicPlayer.clip = gameMusic1;
-                    musicPlayer.Play();
+                    ChangeMusic(gameMusic1);
                 }
 
             }
@@ -46,6 +44,7 @@ public class AudioManager : MonoBehaviour
     public void ChangeMusic(AudioClip newMusic)
     {
         musicPlayer.clip = newMusic;
+        musicPlayer.Play();
     }
 
 

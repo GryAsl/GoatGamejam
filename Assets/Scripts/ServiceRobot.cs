@@ -206,11 +206,14 @@ public class ServiceRobot : MonoBehaviour
         
         foreach (Collider col in colliders)
         {
+            Debug.LogWarning("1");
             if (col.CompareTag("Plate"))
             {
                 Plate plate = col.GetComponent<Plate>();
+            Debug.LogWarning("2");
                 if (plate != null && plate.foodsOnPlate.Exists(f => f.foodData == food))
                 {
+            Debug.LogWarning("3");
                     Debug.Log($"Found matching plate at counter {counter.name}");
                     return col.gameObject;
                 }

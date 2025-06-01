@@ -7,7 +7,10 @@ public class MyKitchenware : MonoBehaviour
     public bool cooking;
     public bool alreadyCooked;
 
-    public GameObject food;
+    public GameObject food1;
+    public GameObject food2;
+    public GameObject food3;
+    public GameObject currentFood;
     public Plate plate;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -21,8 +24,9 @@ public class MyKitchenware : MonoBehaviour
         
     }
 
-    public IEnumerator StartCooking()
+    public IEnumerator StartCooking(GameObject food)
     {
+        currentFood = food;
         cooking = true;
         float time = 0f;
         while(time < 1f)
@@ -34,11 +38,13 @@ public class MyKitchenware : MonoBehaviour
         alreadyCooked = true;
     }
 
-    public void SpawnFood(Transform GO)
+    public GameObject SpawnFood(Transform GO)
     {
-        GameObject newFood = Instantiate(food);
+        GameObject newFood = Instantiate(currentFood);
         newFood.transform.position = GO.position;
         newFood.transform.SetParent(GO);
+
+        return newFood;
     }
 }
 

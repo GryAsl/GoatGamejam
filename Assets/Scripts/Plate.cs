@@ -21,10 +21,10 @@ public class Plate : MonoBehaviour
     {
 
         Debug.Log($"AddFood called: food={food?.name}, foodsOnPlate.Count={foodsOnPlate.Count}");
-        if (!CanAddFood(food)) {
-            Debug.Log("AddFood: Cannot add, plate is full.");
-            return;
-        }
+        //if (!CanAddFood(food)) {
+        //    Debug.Log("AddFood: Cannot add, plate is full.");
+        //    return;
+        //}
 
         foodsOnPlate.Add(food);
         food.transform.SetParent(transform);

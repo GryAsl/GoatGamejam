@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 8894004513156715224}
   - component: {fileID: 7677119345818254044}
   - component: {fileID: 2625896682404279002}
+  - component: {fileID: -3861916589003449481}
+  - component: {fileID: 9133047224502186952}
   m_Layer: 0
   m_Name: pattis%100
   m_TagString: Untagged
@@ -86,3 +88,31 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &-3861916589003449481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4576817842305428472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e625392cbed0b5943945bb66edb3cab3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  foodData: {fileID: 11400000, guid: 2395330713558174982ed5649ff2445d, type: 2}
+  plateOffset: {x: 0, y: 0.1, z: 0}
+  isOnPlate: 0
+--- !u!114 &9133047224502186952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4576817842305428472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c7b9cedf148d3c46aeeec874774934e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemName: Pat
