@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     public CustomerManager customerMan;
 
     public bool isLevelUP;
+    public bool isBuildingDone;
+    public float timerMultiplier = 1f;
     
     [Header("Game Score")]
     public int score = 0;  // This will be visible in the inspector
@@ -51,9 +53,11 @@ public class GameManager : MonoBehaviour
 
             case GameState.normal:
                 StartCoroutine(uiMan.TurnOffPanel(uiMan.buildingPanel));
+                timerMultiplier = 1f;
                 break;
             case GameState.building:
                 StartCoroutine(uiMan.TurnOnPanel(uiMan.buildingPanel));
+                timerMultiplier = 0f;
                 break;
         }
     }
@@ -70,16 +74,30 @@ public class GameManager : MonoBehaviour
     public void CutsceneDone()
     {
         mainCam.enabled = true;
-        customerMan.StartSpawning();
         isGameOn = true;
+        ChangeState(GameState.building);
+    }
+
+    public void BuildingDone()
+    {
+        if (!isBuildingDone)
+        {
+            isBuildingDone = true;
+            customerMan.StartSpawning();
+            StartCoroutine(uiMan.NewPopUP(uiMan.popUP1));
+            StartCoroutine(uiMan.NewPopUP(uiMan.popUP2));
+        }
+        StartCoroutine(uiMan.NewPopUP(uiMan.popUP3));
+        StartCoroutine(uiMan.NewPopUP(uiMan.popUP4));
         ChangeState(GameState.normal);
-        StartCoroutine(uiMan.NewPopUP(uiMan.popUP1));
+        
     }
 
     public void Level1Passed()
     {
         builder.ovenNormalValue = 1;
         isLevelUP = true;
+        ChangeState(GameState.building);
     }
 
     public void ExitGame()

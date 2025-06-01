@@ -19,6 +19,9 @@ public class UIManager : MonoBehaviour
 
     [Header("PopUP")]
     public GameObject popUP1;
+    public GameObject popUP2;
+    public GameObject popUP3;
+    public GameObject popUP4;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -98,7 +101,7 @@ public class UIManager : MonoBehaviour
     {
         CanvasGroup cg = GO.GetComponent<CanvasGroup>();
         cg.interactable = false;
-        cg.blocksRaycasts = true;
+        cg.blocksRaycasts = false;
         float t = cg.alpha;
         while (t >= 0f)
         {

@@ -12,11 +12,13 @@ public class OrderStatus : MonoBehaviour
     public TextMeshProUGUI timerText;
 
     public CanvasGroup cg;
+    public GameManager gm;
 
     Color startColor;
     void Start()
     {
         cg = GetComponent<CanvasGroup>();
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -24,11 +26,11 @@ public class OrderStatus : MonoBehaviour
     {
         if (on)
         {
-            currentTimer += Time.deltaTime;
+            currentTimer += Time.deltaTime * gm.timerMultiplier;
             timerText.text = "Timer: " + currentTimer.ToString("F1");
             if(currentTimer >= food.maxTime)
             {
-                GameObject.Find("GameManager").GetComponent<GameManager>().ENDGAME();
+                gm.ENDGAME();
             }
             if(currentTimer >= food.maxTime * .5f && currentTimer < food.maxTime){
                 timerText.color = Color.Lerp(startColor, Color.red, (currentTimer / (food.maxTime / 2f)) - 1);
