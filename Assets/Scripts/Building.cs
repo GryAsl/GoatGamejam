@@ -25,7 +25,7 @@ public class Building : MonoBehaviour
         {
             GetComponent<BoxCollider>().isTrigger = true;
             ReplaceAllMaterials(greenMaterial);
-            if (buildingName == "3d")
+            if (buildingName == "3D")
                 ReplaceAllMaterials(redMaterial);
         }
         else
@@ -37,9 +37,9 @@ public class Building : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (buildingName == "3d" && !builder.tezgahTypeShi && isGhost)
+        if (buildingName == "3D" && !builder.tezgahTypeShi && isGhost)
             ReplaceAllMaterials(redMaterial);
-        if(buildingName == "3d" && !isGhost)
+        if(buildingName == "3D" && !isGhost)
         {
                 Debug.Log("hit.collider");
             Ray ray = new Ray(transform.position, -transform.up);
@@ -88,7 +88,7 @@ public class Building : MonoBehaviour
             return;
 
         currentCollision = false;
-        if (buildingName == "3d" && !builder.tezgahTypeShi)
+        if (buildingName == "3D" && !builder.tezgahTypeShi)
             ReplaceAllMaterials(redMaterial);
         else
             ReplaceAllMaterials(greenMaterial);

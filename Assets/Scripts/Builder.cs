@@ -24,7 +24,7 @@ public class Builder : MonoBehaviour
     public int red = 1;
     public int yellow = 1;
     public int oven = 1;
-    public int counter = 1;
+    public int counter = 2;
     public int printer = 2;
     public int trash = 1;
     public CanvasGroup cgRed;
@@ -213,6 +213,7 @@ public class Builder : MonoBehaviour
                 builded[builded.Count - 1].transform.rotation = ghost.transform.rotation;
                 builded[builded.Count - 1].GetComponent<Building>().isGhost = false;
                 Debug.LogError("444");
+                DestroyImmediate(ghost);
             }
 
         }
