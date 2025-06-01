@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections;
 
 public class CustomerManager : MonoBehaviour
 {
@@ -10,12 +11,15 @@ public class CustomerManager : MonoBehaviour
     public bool isAllTablesAreFull;
     public float gameEndTimer;
 
+    // Add a reference to the coroutine
+    private Coroutine spawnCoroutine;
+
     void Start()
     {
-
+        // Start spawning customers
+        spawnCoroutine = StartCoroutine(SpawnCustomerRoutine());
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (isAllTablesAreFull)
@@ -25,6 +29,32 @@ public class CustomerManager : MonoBehaviour
         else
         {
             gameEndTimer = 0f;
+        }
+    }
+
+    IEnumerator SpawnCustomerRoutine()
+    {
+        while (true)
+        {
+            // 15 saniye bekle
+            yield return new WaitForSeconds(Random.Range(5f,10f));
+            Debug.LogWarning("1");
+            
+            foreach (PointData pointDataCurrent in pointData)
+            {
+                Debug.LogWarning(pointDataCurrent.isEmpty);
+                if (pointDataCurrent.isEmpty)
+                {
+                    isAllTablesAreFull = false;
+                    break;
+                }
+                else isAllTablesAreFull = true;
+            }
+            Debug.LogError(isAllTablesAreFull);
+            if (!isAllTablesAreFull)
+            {
+                NewCustomer();
+            }
         }
     }
 
@@ -39,16 +69,16 @@ public class CustomerManager : MonoBehaviour
 
         if (currentPointData.isEmpty)
         {
-                    Debug.LogWarning("1");
+            Debug.LogWarning("1");
             customer.NewOrder(foodList[i], currentPointData.point, currentPointData.table);
             currentPointData.isEmpty = false;
             currentPointData.table.RequestFood(foodList[i]);
         }
         else
         {
-            foreach( PointData pointDataCurrent in pointData)
+            foreach (PointData pointDataCurrent in pointData)
             {
-                    Debug.LogWarning(pointDataCurrent.isEmpty);
+                Debug.LogWarning(pointDataCurrent.isEmpty);
                 if (pointDataCurrent.isEmpty)
                 {
                     if (pointDataCurrent.table != null)
@@ -62,15 +92,7 @@ public class CustomerManager : MonoBehaviour
             }
         }
 
-        foreach (PointData pointDataCurrent in pointData)
-        {
-            Debug.LogWarning(pointDataCurrent.isEmpty);
-            if (pointDataCurrent.isEmpty)
-            {
-                isAllTablesAreFull = false;
-            }
-            else isAllTablesAreFull = true;
-        }
+
     }
 }
 
