@@ -242,6 +242,8 @@ public class Builder : MonoBehaviour
         float x = Mathf.Round(pos.x / gridSize) * gridSize;
         float y = Mathf.Round(pos.y / gridSize) * gridSize;
         float z = Mathf.Round(pos.z / gridSize) * gridSize;
+        x += .1f;
+        z -= .05f;
         return new Vector3(x, y, z);
     }
 }

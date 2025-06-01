@@ -68,7 +68,7 @@ public class Customer : MonoBehaviour
         {
             // Check if reached the door
             float distanceToDoor = Vector3.Distance(transform.position, doorPosition.position);
-            if (distanceToDoor <= 2f)
+            if (distanceToDoor <= 1f)
             {
                 Destroy(gameObject);
                 return;
