@@ -6,11 +6,11 @@ public class WashMachine : MonoBehaviour
     [Header("Plate Settings")]
     [SerializeField] private Transform plateStackPosition;
     [SerializeField] private GameObject platePrefab;
-    [SerializeField] private int initialPlateCount = 4;
+    [SerializeField] private int initialPlateCount = 1;
     [SerializeField] private float plateSpacing = 0.02f;
     
     [Header("Washing Settings")]
-    [SerializeField] private float washingTime = 15f;
+    [SerializeField] private float washingTime = 6f;
     
     private int currentPlateCount = 0;
     private bool isWashing = false;

@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 685721916b5684e42a5c392fb68f85b1, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 685721916b5684e42a5c392fb68f85b1, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 685721916b5684e42a5c392fb68f85b1, type: 3}
       propertyPath: m_LocalScale.z
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 685721916b5684e42a5c392fb68f85b1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -167,4 +167,12 @@ MonoBehaviour:
   KitchenwareName: Plate
   cooking: 0
   alreadyCooked: 0
-  food: {fileID: 0}
+  food1: {fileID: 0}
+  food2: {fileID: 0}
+  food3: {fileID: 0}
+  food4: {fileID: 0}
+  currentFood: {fileID: 0}
+  cookedMeat: {fileID: 0}
+  burnedMeat: {fileID: 0}
+  meatPoint: {fileID: 0}
+  burnedMeatSpawned: 0
