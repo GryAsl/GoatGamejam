@@ -10,6 +10,8 @@ public class Plate : MonoBehaviour
         new Vector3(0.1f, 0.1f, 0),   // Sağ pozisyon
     };
 
+    private bool isBeingConsumed = false;
+    
     public bool CanAddFood(Food food)
     {
         bool canAdd = foodsOnPlate.Count < 2;
@@ -19,7 +21,6 @@ public class Plate : MonoBehaviour
 
     public void AddFood(Food food)
     {
-
         Debug.Log($"AddFood called: food={food?.name}, foodsOnPlate.Count={foodsOnPlate.Count}");
         //if (!CanAddFood(food)) {
         //    Debug.Log("AddFood: Cannot add, plate is full.");
@@ -43,6 +44,11 @@ public class Plate : MonoBehaviour
             foodsOnPlate.Remove(food);
             food.transform.SetParent(null);
         }
+    }
+    
+    public void BeingConsumed()
+    {
+        isBeingConsumed = true;
     }
 
     void Start()
