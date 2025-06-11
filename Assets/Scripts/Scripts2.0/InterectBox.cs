@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class InterectBox : MonoBehaviour
 {
+    public GameObject arrow;
     public GameObject item;
     public GameObject Kitchenware;
     public GameObject Plate;
@@ -15,26 +16,21 @@ public class InterectBox : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-    }
-
-
-
-    private void OnTriggerEnter(Collider other)
-    {
-        Debug.Log(other);
-        if (other.GetComponent<Collider>().CompareTag("Item"))
+        if(Kitchenware != null)
         {
-            item = other.gameObject;
+            arrow.GetComponent<MeshRenderer>().enabled = true;
+            arrow.transform.position = new Vector3(Kitchenware.transform.position.x, Kitchenware.transform.position.y + 1.5f, Kitchenware.transform.position.z);
         }
-        if (other.gameObject.CompareTag("Interactable"))
+        else if (item != null)
         {
-            Kitchenware = other.gameObject;
+            arrow.GetComponent<MeshRenderer>().enabled = true;
+            arrow.transform.position = new Vector3(item.transform.position.x, item.transform.position.y + 1.5f, item.transform.position.z);
         }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        Kitchenware = null;
+        else if (Plate != null)
+        {
+            arrow.GetComponent<MeshRenderer>().enabled = true;
+            arrow.transform.position = new Vector3(Plate.transform.position.x, Plate.transform.position.y + 1.5f, Plate.transform.position.z);
+        }
+        else arrow.GetComponent<MeshRenderer>().enabled = false;
     }
 }

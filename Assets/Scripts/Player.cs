@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveZ = Input.GetAxisRaw("Vertical");
 
-        movement = new Vector3(moveX, 0f, moveZ).normalized;
+        movement = new Vector3(-moveZ, 0f, moveX).normalized;
 
         // Update animation parameters
         animator.SetFloat("Speed", movement.magnitude);

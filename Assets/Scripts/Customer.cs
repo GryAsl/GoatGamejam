@@ -77,7 +77,7 @@ public class Customer : MonoBehaviour
             }
         }
         
-        float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
+        float distanceToTarget = Vector3.Distance(transform.position, new Vector3(targetPosition.x, transform.position.y, targetPosition.z));
         //Debug.Log($"Customer Update - Distance to target: {distanceToTarget}, Stopping distance: {agent.stoppingDistance}");
         float speed = agent.velocity.magnitude;   
         animator.SetFloat("Speed", speed); 
