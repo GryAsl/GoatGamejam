@@ -17,6 +17,8 @@ public class Customer : MonoBehaviour
     private bool isEating = false;
     private bool isLeaving = false;
     private float eatingCountdown = 5f;
+    public float distanceToDoorLeave = 1f;
+    public float distanceToTable = 1f;
 
     GameManager gameManager;
 
@@ -68,7 +70,7 @@ public class Customer : MonoBehaviour
         {
             // Check if reached the door
             float distanceToDoor = Vector3.Distance(transform.position, doorPosition.position);
-            if (distanceToDoor <= 1f)
+            if (distanceToDoor <= distanceToDoorLeave)
             {
                 Destroy(gameObject);
                 return;
@@ -80,7 +82,7 @@ public class Customer : MonoBehaviour
         float speed = agent.velocity.magnitude;   
         animator.SetFloat("Speed", speed); 
 
-        if (distanceToTarget <= 2f && !isEating && !isLeaving)
+        if (distanceToTarget <= distanceToTable && !isEating && !isLeaving)
         {
             //Debug.Log("Customer reached destination point");
             animator.SetFloat("Speed", 0f);
